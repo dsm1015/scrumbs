@@ -14,8 +14,10 @@ export class LoginComponent {
         private authService: AuthenticationService
     ) { }
 
-    // public login
+    // public login: send creds from form to server
     login() {
-        
+        //request with token for validation
+        //request session
     }
+
 }
