@@ -1,38 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Scrumb Login</title>
-    <link rel="stylesheet" href="./login.css"> <!-- CSS link -->
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
 
-  <body>
-    <form action="/login.js" method="post">
-      <h2>Scrumbs</h2>
-      <div class="imgcontainer">
-        <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrumbs Login</title>
+  <link rel="stylesheet" href="login.css">
+  <script defer src="login.js"></script>
+</head>
+
+<body>
+  <main id="main-holder">
+    <h1 id="login-header">Scrumbs Login</h1>
     
-      <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+    <div id="login-error-msg-holder">
+      <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+    </div>
     
-        <label for="passw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-            
-        <button type="submit">Login</button>
-        
-      </div>
-    
-      <div class="container" style="background-color: #f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
-      </div>
+    <form id="login-form">
+      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+      <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+      <input type="submit" value="Login" id="login-form-submit">
     </form>
+  
+  </main>
+</body>
 
-
-	<script src="index.js"></script>
-  </body>
 </html>
