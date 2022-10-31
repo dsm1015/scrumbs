@@ -1,22 +1,15 @@
-<p>login stuff</p>
 <form action="/login.js" method="post">
-    <h2>Scrumbs</h2>
-    <div class="imgcontainer">
-        <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
-    </div>
-
-    <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-
-        <label for="passw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-            
-        <button type="submit">Login</button>
+    <main id="main-holder">
+        <h1 id="login-header">Scrumbs Login</h1>
         
-    </div>
-
-    <div class="container" style="background-color: #f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
-    </div>
+        <div id="login-error-msg-holder">
+          <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+        </div>
+        
+        <form id="login-form">
+          <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+          <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+          <input type="submit" value="Login" id="login-form-submit">
+        </form>
+      </main>
 </form>
