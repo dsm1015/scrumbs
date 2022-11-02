@@ -1,27 +1,15 @@
-import { Component } from "@angular/core";
-import { AuthenticationService } from '../../security/authentication.service';
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
+export class LoginComponent implements OnInit {
 
-export class LoginComponent {
+  constructor() { }
 
-    constructor(
-        private authService: AuthenticationService
-    ) { }
-
-    ngOnInit(): void {
-        
-    }
-
-    // public login: send creds from form to server
-    login() {
-        //request with token for validation
-        //request session
-    }
+  ngOnInit(): void {
+  }
 
 }
