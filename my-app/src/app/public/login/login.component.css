@@ -1,0 +1,16 @@
+.main-login-div mat-card {
+    padding: 0px;
+}
+
+.login-form {
+    padding: 20px;
+}
+
+.login-toolbar {
+    background-color: #0A7029;
+    color: white;
+}
+
+.login-button {
+    background-color: #DBE8D8;
+}

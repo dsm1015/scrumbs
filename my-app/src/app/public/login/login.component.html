@@ -1,5 +1,15 @@
-<div>
-    <mat-card>
-        this is a Tes
+<div fxLayoutAlign="center center" fxFlexFill class="main-login-div">
+    <mat-card fxFlex=25>
+        <mat-toolbar class="login-toolbar">Scrumbs</mat-toolbar>
+        <form fxLayoutAlign="stretch" fxLayout="column" class="login-form">
+            <mat-form-field>
+              <input matInput placeholder="Username">
+            </mat-form-field>
+          
+            <mat-form-field>
+                <input matInput type="password" placeholder="Password">
+              </mat-form-field>
+              <button mat-raised-button class="login-button" type="submit">Login</button>
+          </form>
     </mat-card>
 </div>
