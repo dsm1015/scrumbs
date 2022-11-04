@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './public/login/login.component';
 import { DashboardComponent } from './protected/dashboard/dashboard.component';
+import { ProjectManagerComponent } from './protected/project-manager/project-manager.component'
 
 //Angular Material Imports
 import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
@@ -15,12 +16,15 @@ import { MatInputModule } from '@angular/material/input'; //inputs
 import { MatButtonModule } from '@angular/material/button'; //buttons
 import { MatCardModule } from '@angular/material/card'; //cards
 import { MatToolbarModule } from '@angular/material/toolbar'; //toolbar
+import { MatGridListModule } from '@angular/material/grid-list'; //grid
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProjectManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,8 @@ import { MatToolbarModule } from '@angular/material/toolbar'; //toolbar
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
