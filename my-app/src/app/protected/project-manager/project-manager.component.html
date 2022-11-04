@@ -1,12 +1,12 @@
 <body>
     <!-- Top nav bar -->
     <div>
-        <mat-toolbar>
+        <mat-toolbar class="top-nav-bar">
             <span class="title">Scrumbs</span>
             <span class="spacer" style="width: 25px;"></span>
-            <button mat-icon-button>Dashboard</button>
+            <button mat-icon-button routerLink='/dashboard'>Dashboard</button>
             <span class="spacer" style="width: 50px;"></span>
-            <button mat-icon-button>Projects</button>
+            <button mat-icon-button routerLink='/projects'>Projects</button>
             <span class="spacer" style="width: 35px;"></span>
             <button mat-icon-button>Settings</button>
             <span class="spacer" style="width: 40px;"></span>
@@ -16,9 +16,68 @@
 
     <!-- Left nav bar -->
     <div>
-        <mat-drawer-container class="example-container">
-            <mat-drawer mode="side" opened>Project 1</mat-drawer>
-            <mat-drawer-content>Main content</mat-drawer-content>
+        <mat-drawer-container class="sidenav">
+            <mat-drawer mode="side" class="project-list" opened>
+                <h2>Projects:</h2>
+                <button mat-icon-button>Project 1</button>
+                <br>
+                <button mat-icon-button>Project 2</button>
+                <br>
+                <button mat-icon-button>Project 3</button>
+            </mat-drawer>
+            <mat-drawer-content>
+                <!-- Cards for varying project tasks -->
+                <mat-card class="project-card" fxFlex="25"> 
+                    <mat-card-title>
+                        To Do:   
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>
+                    <div>
+                        <mat-grid-list cols="2" rowHeight="150px" gutterSize="5px">
+                            <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]">
+                                <mat-card fxFlex="100" fxAlign="stretch">
+                                    <mat-card-subtitle>
+                                        Task {{i}}
+                                    </mat-card-subtitle>
+                                    <mat-card-content>
+                                        Finish writing code
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>                 
+                </mat-card>
+
+                <mat-card class="project-card" fxFlex="25">
+                    <mat-card-title>
+                        In Progress:
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>
+                </mat-card>
+
+                <mat-card class="project-card" fxFlex="25">
+                    <mat-card-title>
+                        Needs Approved:
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>
+                </mat-card>
+
+                <mat-card class="project-card" fxFlex="25">
+                    <mat-card-title>
+                        Completed:
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>  
+                </mat-card>
+
+            </mat-drawer-content>
         </mat-drawer-container>
     </div>
 </body>

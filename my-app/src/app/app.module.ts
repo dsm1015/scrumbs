@@ -20,6 +20,9 @@ import { MatGridListModule } from '@angular/material/grid-list'; //grid
 import { MatSidenavModule } from '@angular/material/sidenav'; //sidebar
 import { MatListModule } from '@angular/material/list'; //list
 
+//Font Awesome
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { MatListModule } from '@angular/material/list'; //list
     MatToolbarModule,
     MatGridListModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
