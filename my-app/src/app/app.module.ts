@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button'; //buttons
 import { MatCardModule } from '@angular/material/card'; //cards
 import { MatToolbarModule } from '@angular/material/toolbar'; //toolbar
 import { MatGridListModule } from '@angular/material/grid-list'; //grid
+import { MatSidenavModule } from '@angular/material/sidenav'; //sidebar
+import { MatListModule } from '@angular/material/list'; //list
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { MatGridListModule } from '@angular/material/grid-list'; //grid
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
