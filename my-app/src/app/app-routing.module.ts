@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './protected/dashboard/dashboard.component';
 import { ProjectManagerComponent } from './protected/project-manager/project-manager.component';
 import { LoginComponent } from './public/login/login.component';
-import { AuthenticationGaurd } from './security/authentication.gaurd'
+import { AdminComponent } from './protected/admin/admin.component'
+import { AuthenticationGaurd } from './security/authentication.gaurd';
 
 //Angular Material Imports
 import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent }, //, canActivate: [AuthenticationGaurd]
   { path: 'projects', component: ProjectManagerComponent }, //canActivate: [AuthenticationGaurd],
+  { path: 'settings', component: AdminComponent },
   {
     path: '**',
     redirectTo: 'login',

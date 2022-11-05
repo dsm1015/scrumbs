@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './public/login/login.component';
 import { DashboardComponent } from './protected/dashboard/dashboard.component';
-import { ProjectManagerComponent } from './protected/project-manager/project-manager.component'
+import { ProjectManagerComponent } from './protected/project-manager/project-manager.component';
+import { AdminComponent } from './protected/admin/admin.component';
 
 //Angular Material Imports
 import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
@@ -19,9 +20,10 @@ import { MatToolbarModule } from '@angular/material/toolbar'; //toolbar
 import { MatGridListModule } from '@angular/material/grid-list'; //grid
 import { MatSidenavModule } from '@angular/material/sidenav'; //sidebar
 import { MatListModule } from '@angular/material/list'; //list
+import { MatSelectModule } from '@angular/material/select';
 
 //Font Awesome
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+//import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    ProjectManagerComponent
+    ProjectManagerComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatGridListModule,
     MatSidenavModule,
     MatListModule,
-    FontAwesomeModule
+    MatSelectModule
+    //FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
