@@ -28,85 +28,87 @@
             <mat-drawer-content>
                 <!-- Cards for varying project tasks -->
                 <div>
-                    <mat-card class="project-card" fxLayout="row"> 
+                    <mat-card class="project-card"> 
                         <mat-card-title>
                             User Management:   
                         </mat-card-title>
-                        <div> <!-- User Creation -->
-                            <mat-card fxFlex="50" fxFlex="stretch" class="admin-card">
-                                <mat-card-title>
-                                    Create a User
-                                </mat-card-title>
-                                <mat-form-field>
-                                    <input matInput placeholder="Username">
-                                </mat-form-field>
-                                <br>
-                                <mat-form-field>
-                                    <input matInput type="password" placeholder="Password">
-                                </mat-form-field>
-                                <br>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>User Type:</mat-label>
-                                    <select matNativeControl required>
-                                        <option value="engineer">Engineer</option>
-                                        <option value="master">Master</option>
-                                        <option value="stakeholder">Stakeholder</option>
-                                    </select>
-                                </mat-form-field>
-                                <br>
-                                <button mat-raised-button class="admin-button" type="submit">Create User</button>
-                            </mat-card>
-                        </div>
-                        <div> <!-- User Modification -->
-                            <mat-card fxFlex="50" fxFlex="stretch" class="admin-card">
-                                <mat-card-title>
-                                    Modify a User
-                                </mat-card-title>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Select a User:</mat-label>
-                                    <select matNativeControl required>
-                                        <option value="user1">Luke</option>
-                                        <option value="user2">Douglas</option>
-                                        <option value="user3">Alec</option>
-                                    </select>
-                                </mat-form-field>
-                                <br>
-                                <mat-form-field>
-                                    <input matInput placeholder="Change username">
-                                </mat-form-field>
-                                <br>
-                                <mat-form-field>
-                                    <input matInput type="password" placeholder="Change password">
-                                </mat-form-field>
-                                <br>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Change User Type:</mat-label>
-                                    <select matNativeControl required>
-                                        <option value="engineer">Engineer</option>
-                                        <option value="master">Master</option>
-                                        <option value="stakeholder">Stakeholder</option>
-                                    </select>
-                                </mat-form-field>
-                                <br>
-                                <button mat-raised-button class="admin-button" type="submit">Apply Changes</button>
-                            </mat-card>
-                        </div>
-                        <div> <!-- User Deletion -->
-                            <mat-card fxFlex="50" fxFlex="stretch" class="admin-card">
-                                <mat-card-title>
-                                    Delete a User
-                                </mat-card-title>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Select a User:</mat-label>
-                                    <select matNativeControl required>
-                                        <option value="user1">Luke</option>
-                                        <option value="user2">Douglas</option>
-                                        <option value="user3">Alec</option>
-                                    </select>
-                                </mat-form-field>
-                                <br>
-                                <button mat-raised-button class="admin-button" type="submit">Delete User</button>
-                            </mat-card>
+                        <div fxLayout="row">
+                            <div> <!-- User Creation -->
+                                    <mat-card fxFlex="stretch" class="admin-card">
+                                        <mat-card-title>
+                                            Create a User
+                                        </mat-card-title>
+                                        <mat-form-field>
+                                            <input matInput placeholder="Username">
+                                        </mat-form-field>
+                                        <br>
+                                        <mat-form-field>
+                                            <input matInput type="password" placeholder="Password">
+                                        </mat-form-field>
+                                        <br>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>User Type:</mat-label>
+                                            <select matNativeControl required>
+                                                <option value="engineer">Engineer</option>
+                                                <option value="master">Master</option>
+                                                <option value="stakeholder">Stakeholder</option>
+                                            </select>
+                                        </mat-form-field>
+                                        <br>
+                                        <button mat-raised-button class="admin-button" type="submit">Create User</button>
+                                    </mat-card>
+                            </div>
+                            <div> <!-- User Modification -->
+                                    <mat-card fxFlex="stretch" class="admin-card">
+                                        <mat-card-title>
+                                            Modify a User
+                                        </mat-card-title>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Select a User:</mat-label>
+                                            <select matNativeControl required>
+                                                <option value="user1">Luke</option>
+                                                <option value="user2">Douglas</option>
+                                                <option value="user3">Alec</option>
+                                            </select>
+                                        </mat-form-field>
+                                        <br>
+                                        <mat-form-field>
+                                            <input matInput placeholder="Change username">
+                                        </mat-form-field>
+                                        <br>
+                                        <mat-form-field>
+                                            <input matInput type="password" placeholder="Change password">
+                                        </mat-form-field>
+                                        <br>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Change User Type:</mat-label>
+                                            <select matNativeControl required>
+                                                <option value="engineer">Engineer</option>
+                                                <option value="master">Master</option>
+                                                <option value="stakeholder">Stakeholder</option>
+                                            </select>
+                                        </mat-form-field>
+                                        <br>
+                                        <button mat-raised-button class="admin-button" type="submit">Apply Changes</button>
+                                    </mat-card>
+                            </div>
+                            <div> <!-- User Deletion -->
+                                    <mat-card fxFlex="stretch" class="admin-card">
+                                        <mat-card-title>
+                                            Delete a User
+                                        </mat-card-title>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Select a User:</mat-label>
+                                            <select matNativeControl required>
+                                                <option value="user1">Luke</option>
+                                                <option value="user2">Douglas</option>
+                                                <option value="user3">Alec</option>
+                                            </select>
+                                        </mat-form-field>
+                                        <br>
+                                        <button mat-raised-button class="admin-button" type="submit">Delete User</button>
+                                    </mat-card>
+                            </div>
                         </div>
                     </mat-card>
 
