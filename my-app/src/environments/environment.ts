@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://locahost:4200'
+  RSA_PRIVATE_KEY: '',
+  API_URL: 'http://locahost:4200',
+  DB_NAME: '',
+  DB_CONN_STR: '',
 };
 
 /*

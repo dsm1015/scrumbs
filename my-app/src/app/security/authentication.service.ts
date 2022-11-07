@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core"
 import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { tap, shareReplay } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import {LoginRequest, LoginResponse} from'../public/interfaces'
 import { User } from '../_models/user'
@@ -27,16 +28,40 @@ export class AuthenticationService {
         return this.currentUserSubject?.value;
     }
 
-    login(username: any, password: any) {
-        return this.http.post<any>(`${environment.API_URL}/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                if(this.currentUserSubject){
-                    this.currentUserSubject.next(user);
-                }
-                return user;
-            }));
+    login(username: string, password: string) {
+        return this.http.post<User>(`/api/login`, { username, password }).pipe(
+            tap(res => this.setSession),
+            shareReplay()
+        );
+    }
+
+    private setSession(authResult: { expiresIn: any; idToken: string; }) {
+        const expiresAt = moment().add(authResult.expiresIn,'second');
+
+        localStorage.setItem('id_token', authResult.idToken);
+        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+    }
+
+    logout() {
+        localStorage.removeItem("id_token");
+        localStorage.removeItem("expires_at");
+    }
+
+    public isLoggedIn() {
+        return moment().isBefore(this.getExpiration());
+    }
+
+    isLoggedOut() {
+        return !this.isLoggedIn();
+    }
+
+    getExpiration() {
+        const expiration = localStorage.getItem("expires_at");
+        if(expiration){
+            const expiresAt = JSON.parse(expiration);
+            return moment(expiresAt);
+        }
+        return expiration;
     }
     
     //create token with secret key, send token back to the client

@@ -21,7 +21,7 @@ import { MatGridListModule } from '@angular/material/grid-list'; //grid
 import { MatSidenavModule } from '@angular/material/sidenav'; //sidebar
 import { MatListModule } from '@angular/material/list'; //list
 import { MatSelectModule } from '@angular/material/select';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Font Awesome
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -32,7 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
     LoginComponent,
     DashboardComponent,
     ProjectManagerComponent,
-    AdminComponent
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +47,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatGridListModule,
     MatSidenavModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule
     //FontAwesomeModule
   ],
   providers: [],

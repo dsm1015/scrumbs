@@ -15,10 +15,6 @@ export async function connectToDatabase () {
         
     const db: mongoDB.Db = client.db(process.env.DB_NAME);
    
-    const gamesCollection: mongoDB.Collection = db.collection(process.env.GAMES_COLLECTION_NAME);
- 
-    collections.games = gamesCollection;
-       
-         console.log(`Successfully connected to database: ${db.databaseName} and collection: ${gamesCollection.collectionName}`);
+
  }
  */

@@ -1,15 +1,15 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-login-div">
     <mat-card fxFlex=25>
         <mat-toolbar class="login-toolbar">Scrumbs</mat-toolbar>
-        <form fxLayoutAlign="stretch" fxLayout="column" class="login-form">
+        <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" [formGroup]="loginForm">
             <mat-form-field>
-              <input matInput placeholder="Username">
+              <input matInput placeholder="Username" formControlName="username">
             </mat-form-field>
           
             <mat-form-field>
-                <input matInput type="password" placeholder="Password">
+                <input matInput type="password" placeholder="Password" formControlName="password">
             </mat-form-field>
-            <button mat-raised-button class="login-button" type="submit" routerLink="/dashboard">Login</button>
+            <button mat-raised-button class="login-button" type="submit" (click)="login()">Login</button>
         </form>
     </mat-card>
 </div>
