@@ -7,21 +7,13 @@ import { LoginComponent } from './public/login/login.component';
 import { AdminComponent } from './protected/admin/admin.component'
 import { AuthenticationGaurd } from './security/authentication.gaurd';
 
-//Angular Material Imports
-import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
-import {MatFormFieldModule} from '@angular/material/form-field'; //forms
-import {MatInputModule} from '@angular/material/input'; //inputs
-import {MatButtonModule} from '@angular/material/button'; //buttons
-import {MatCardModule} from '@angular/material/card'; //cards
-
-import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, //defualt route
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent }, //, canActivate: [AuthenticationGaurd]
-  { path: 'projects', component: ProjectManagerComponent }, //canActivate: [AuthenticationGaurd],
-  { path: 'settings', component: AdminComponent },
+  { path: 'dashboard', canActivate: [AuthenticationGaurd], component: DashboardComponent }, 
+  { path: 'projects', canActivate: [AuthenticationGaurd], component: ProjectManagerComponent },
+  { path: 'settings', canActivate: [AuthenticationGaurd], component: AdminComponent },
   {
     path: '**',
     redirectTo: 'login',

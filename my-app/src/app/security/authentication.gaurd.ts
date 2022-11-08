@@ -15,12 +15,15 @@ export class AuthenticationGaurd implements CanActivate{
         private authenticationService: AuthenticationService
     ) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-        const currentUser = this.authenticationService.currentUserValue;
-        if (currentUser) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
+
+        //TEST TEST TEST
+        return true;
+
+        if (this.authenticationService.isLoggedIn()) {
             return true;
         }
-        this.router.navigate(['public']), { queryParams: {returnUrl: state.url}};
+        this.router.navigate(['/login']), { queryParams: {returnUrl: state.url}};
         return false;
     }
 }

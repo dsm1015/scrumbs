@@ -1,5 +1,4 @@
 import {Request, Response} from "express";
-import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import * as fs from "fs";
 
@@ -13,7 +12,7 @@ export function loginRoute(req: Request, res: Response) {
     if (validateUserAndPassword(user, password)) {
        const userId = findUserIdForUser(user);
 
-        //sign token
+        //sign token 
         const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
                 algorithm: 'RS256',
                 expiresIn: 120,
