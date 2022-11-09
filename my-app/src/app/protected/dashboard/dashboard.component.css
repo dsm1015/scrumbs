@@ -1,0 +1,20 @@
+body {
+    background-color: lightgray;
+}
+
+.main-card {
+    padding: 30px;
+}
+
+.grid-margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.mat-card-title {
+    color: white;
+    background-color: #0A7029;
+    padding: 10px;
+}

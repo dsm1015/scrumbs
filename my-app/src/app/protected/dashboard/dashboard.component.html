@@ -1,4 +1,51 @@
-<h1>Scrumbs Dashboard</h1>
-<p>
-    Welcome... username
-</p>
+<body>
+    <!-- Top nav bar -->
+    <app-nav></app-nav>
+
+    <!-- Dashboard Cards-->
+    <div>
+        <mat-grid-list cols="2" rowHeight="320px" gutterSize="10px" class="grid-margin">
+            <mat-grid-tile> <!-- Projects Card -->
+                <mat-card fxFlex="100" fxFlexAlign="stretch">
+                    <mat-card-title>
+                        Projects:
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        Live Projects
+                    </mat-card-subtitle>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile> <!-- User Card -->
+                <mat-card fxFlex="100" fxFlexAlign="stretch">
+                    <mat-card-title>
+                        Users:
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        Active Users
+                    </mat-card-subtitle>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile> <!-- Domain Card -->
+                <mat-card fxFlex="100" fxFlexAlign="stretch">
+                    <mat-card-title>
+                        Domain:
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        Domain Information
+                    </mat-card-subtitle>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile> <!-- Requests Card -->
+                <mat-card fxFlex="100" fxFlexAlign="stretch">
+                    <mat-card-title>
+                        Requests:
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        Submitted Requests
+                    </mat-card-subtitle>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</body>
+

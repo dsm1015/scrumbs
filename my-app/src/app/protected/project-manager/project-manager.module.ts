@@ -12,7 +12,10 @@ export const ProjectManagerRouting = RouterModule.forChild(ProjectManagerRoutes)
 
 
 @NgModule({
-    imports: [ CommonModule, ProjectManagerRouting ],
+    imports: [ 
+        CommonModule, 
+        ProjectManagerRouting
+    ],
     declarations: [ ProjectManagerComponent ]
 })
 

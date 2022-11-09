@@ -1,1 +1,71 @@
-<p>show projects here with scrum board when one is selected. scrum masters can edit projects, members can edit tasks, etc.. </p>
+<body>
+    <!-- Top nav bar -->
+    <app-nav></app-nav>
+
+    <!-- Left nav bar -->
+    <div>
+        <mat-drawer-container class="sidenav">
+            <mat-drawer mode="side" class="project-list" opened>
+                <h2>Projects:</h2>
+                <button mat-icon-button>Project 1</button>
+                <br>
+                <button mat-icon-button>Project 2</button>
+                <br>
+                <button mat-icon-button>Project 3</button>
+            </mat-drawer>
+            <mat-drawer-content>
+                <!-- Cards for varying project tasks -->
+                <mat-card class="project-card" fxFlex="25"> 
+                    <mat-card-title>
+                        To Do:   
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>
+                    <div>
+                        <mat-grid-list cols="2" rowHeight="150px" gutterSize="5px">
+                            <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]">
+                                <mat-card fxFlex="100" fxAlign="stretch">
+                                    <mat-card-subtitle>
+                                        Task {{i}}
+                                    </mat-card-subtitle>
+                                    <mat-card-content>
+                                        Finish writing code
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>                 
+                </mat-card>
+
+                <mat-card class="project-card" fxFlex="25">
+                    <mat-card-title>
+                        In Progress:
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>
+                </mat-card>
+
+                <mat-card class="project-card" fxFlex="25">
+                    <mat-card-title>
+                        Needs Approved:
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>
+                </mat-card>
+
+                <mat-card class="project-card" fxFlex="25">
+                    <mat-card-title>
+                        Completed:
+                    </mat-card-title>
+                    <mat-card-actions class="addBtn" align="end">
+                        <button mat-button>Add</button>
+                    </mat-card-actions>  
+                </mat-card>
+
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+</body>
