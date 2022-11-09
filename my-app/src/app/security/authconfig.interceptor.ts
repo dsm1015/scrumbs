@@ -34,7 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
         // route functions
         function authenticate() {
             console.log(idToken)
-            if (true) {
+            if (idToken) {
                 const cloned = request.clone({
                     headers: request.headers.set("Authorization",
                         "Bearer " + idToken)
