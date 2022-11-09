@@ -18,6 +18,7 @@ export function loginRoute(req: Request, res: Response) {
                 expiresIn: 120,
                 subject: userId
             });
+        console.log(jwtBearerToken);
 
         // send token back to user via http
         res.status(200).json({

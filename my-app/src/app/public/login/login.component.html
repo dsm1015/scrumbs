@@ -1,6 +1,10 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-login-div" class="login-screen">
     <mat-card fxFlex=25>
-        <mat-toolbar class="login-toolbar">Scrumbs</mat-toolbar>
+        <mat-toolbar class="login-toolbar">
+            <img src="../../../assets/android-chrome-192x192.png">
+            <span class="spacer" style="width: 30px;"></span>
+            Scrumbs
+        </mat-toolbar>
         <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" [formGroup]="loginForm">
             <mat-form-field>
               <input matInput placeholder="Username" formControlName="username">

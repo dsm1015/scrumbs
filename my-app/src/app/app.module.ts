@@ -8,6 +8,8 @@ import { LoginComponent } from './public/login/login.component';
 import { DashboardComponent } from './protected/dashboard/dashboard.component';
 import { ProjectManagerComponent } from './protected/project-manager/project-manager.component';
 import { AdminComponent } from './protected/admin/admin.component';
+import { NavComponent } from './protected/nav/nav.component';
+import { AuthInterceptor } from './security/authconfig.interceptor'
 
 //Angular Material Imports
 import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
@@ -22,7 +24,7 @@ import { MatListModule } from '@angular/material/list'; //list
 import { MatSelectModule } from '@angular/material/select';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 
 //Font Awesome
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -35,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     ProjectManagerComponent,
     AdminComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,13 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
     //FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

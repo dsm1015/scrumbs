@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
-
+import { AuthenticationService } from "./authentication.service"
 
 @Injectable()
-export class FakeBackendInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
+
+    constructor(private authService: AuthenticationService){
+    }
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
+        const idToken = this.authService.getToken();
 
         // wrap in delayed observable to simulate server api call
         return of(null)
@@ -27,10 +32,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         // route functions
-
         function authenticate() {
-            const idToken = localStorage.getItem("id_token");
-            if (idToken) {
+            console.log(idToken)
+            if (true) {
                 const cloned = request.clone({
                     headers: request.headers.set("Authorization",
                         "Bearer " + idToken)
@@ -39,15 +43,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return next.handle(cloned);
             }
             else {
+                console.log(request);
                 return next.handle(request);
             }
         }
     }
 }
-
-export const fakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
-    provide: HTTP_INTERCEPTORS,
-    useClass: FakeBackendInterceptor,
-    multi: true
-};

@@ -19,3 +19,7 @@
     background: rgb(9,115,41);
     background: linear-gradient(180deg, rgba(9,115,41,1) 0%, rgba(202,223,82,1) 100%, rgba(219,232,216,1) 100%);
 }
+
+img {
+    height: 50px;
+  }

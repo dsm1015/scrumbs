@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   RSA_PRIVATE_KEY: '',
-  API_URL: 'http://locahost:4200',
+  API_URL: 'http://locahost:4200/api',
   DB_NAME: '',
   DB_CONN_STR: '',
 };
