@@ -32,7 +32,7 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         //send login data to server
-        return this.http.post<User>(`${environment.API_URL}/api/authenticate`, { username, password })
+        return this.http.post<User>(`${environment.API_URL}/authenticate`, { username, password })
         .subscribe((res:any) => {
             this.setSession(res)
             this.getUserProfile(res._id).subscribe((res) => {
@@ -47,7 +47,7 @@ export class AuthenticationService {
     }
 
     getUserProfile(id: any): Observable<any> {
-        let api = `${environment.API_URL}/api/user-profile/${id}`;
+        let api = `${environment.API_URL}/user-profile/${id}`;
         return this.http.get(api, { headers: this.headers }).pipe(
           map((res) => {
             return res || {};
