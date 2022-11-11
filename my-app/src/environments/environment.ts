@@ -6,8 +6,6 @@ export const environment = {
   production: false,
   RSA_PRIVATE_KEY: '',
   API_URL: 'http://localhost:4201',
-  DB_NAME: '',
-  DB_CONN_STR: '',
 };
 
 /*

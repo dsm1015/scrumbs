@@ -1,7 +1,21 @@
 // equivalent of older: const express = require('express')
-import * as express from 'express';
-import { routes } from './routes'; 
-const app = express.default();
+import express from 'express';
+import { routes } from './routes';
+import mongoose from 'mongoose'
+import { config } from './config/config'
+
+const app = express();
+
+mongoose
+    .connect(config.mongo.url)
+    .then(() => {
+        console.log('connected');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+
 
 // Allow any method from any host and log requests
 app.use((req: { method: string; ip: any; url: any; }, res: { header: (arg0: string, arg1: string) => void; sendStatus: (arg0: number) => void; }, next: () => void) => {
