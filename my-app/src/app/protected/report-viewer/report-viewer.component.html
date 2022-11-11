@@ -1,0 +1,28 @@
+<body>
+    <!-- Top nav bar -->
+    <app-nav></app-nav>
+
+    <!-- Left nav bar -->
+    <div>
+        <mat-drawer-container class="sidenav">
+            <mat-drawer mode="side" class="project-list" opened>
+                <h2>Reports:</h2>
+                <button mat-icon-button>Report 1</button>
+                <br>
+                <button mat-icon-button>Report 2</button>
+                <br>
+                <button mat-icon-button>Report 3</button>
+            </mat-drawer>
+            <mat-drawer-content>
+                <!-- Cards for varying project tasks -->
+                <mat-card fxFlex="stretch" class="report-card">
+                    <mat-card-title>
+                        Report:
+                    </mat-card-title> 
+                </mat-card>
+
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+
+</body>

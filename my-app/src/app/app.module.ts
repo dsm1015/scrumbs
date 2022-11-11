@@ -9,6 +9,7 @@ import { DashboardComponent } from './protected/dashboard/dashboard.component';
 import { ProjectManagerComponent } from './protected/project-manager/project-manager.component';
 import { AdminComponent } from './protected/admin/admin.component';
 import { NavComponent } from './protected/nav/nav.component';
+import { ReportViewerComponent } from './protected/report-viewer/report-viewer.component';
 import { AuthInterceptor } from './security/authconfig.interceptor'
 
 //Angular Material Imports
@@ -21,10 +22,13 @@ import { MatToolbarModule } from '@angular/material/toolbar'; //toolbar
 import { MatGridListModule } from '@angular/material/grid-list'; //grid
 import { MatSidenavModule } from '@angular/material/sidenav'; //sidebar
 import { MatListModule } from '@angular/material/list'; //list
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select'; //select
+import { MatDatepickerModule } from '@angular/material/datepicker'; //datepicker
+import { MatNativeDateModule } from '@angular/material/core'; //date
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+
 
 //Font Awesome
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -37,7 +41,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     DashboardComponent,
     ProjectManagerComponent,
     AdminComponent,
-    NavComponent
+    NavComponent,
+    ReportViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     MatSidenavModule,
     MatListModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
