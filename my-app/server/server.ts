@@ -1,42 +1,62 @@
 // equivalent of older: const express = require('express')
 import express from 'express';
-import { routes } from './routes';
-import mongoose from 'mongoose'
+import mongoose, { startSession } from 'mongoose'
+import http from 'http';
 import { config } from './config/config'
+import { routes } from './routes';
+import Log from './server-log';
 
 const app = express();
 
+// mongoDB
 mongoose
     .connect(config.mongo.url)
     .then(() => {
-        console.log('connected');
+        Log.info('Mongo connected successfully.');
+        StartServer();
     })
     .catch((error) => {
-        console.log(error);
+        Log.error(error);
     });
 
 
-
 // Allow any method from any host and log requests
-app.use((req: { method: string; ip: any; url: any; }, res: { header: (arg0: string, arg1: string) => void; sendStatus: (arg0: number) => void; }, next: () => void) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, HEAD, POST, PUT, DELETE');
-    if('OPTIONS' === req.method) {
-        res.sendStatus(200);
-    } else {
-        console.log(`${req.ip} ${req.method} ${req.url}`);
+const StartServer = () => {
+
+    /** Log the request */
+    app.use((req, res, next) => {
+        /** Log the req */
+        Log.info(`Incomming - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
+
+        res.on('finish', () => {
+            /** Log the res */
+            Log.info(`Result - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - STATUS: [${res.statusCode}]`);
+        });
+
         next();
-    }
-});
-// Handle POST requests that come in formatted as JSON
-app.use(express.json());
+    });
 
-// use routes
-app.use('/', routes);
+    app.use(express.urlencoded({ extended: true}));
+    // Handle POST requests that come in formatted as JSON
+    app.use(express.json());
 
-// start our server on port 4201
-app.listen(4201, '127.0.0.1', function() {
-    console.log("Server now listening on 4201");
-});
+    // API RULES
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+        if('OPTIONS' === req.method) {
+            res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, HEAD, POST, PUT, DELETE')
+            return res.status(200).json({});
+        }
+        next();
+    });
+    
+    // use routes
+    app.use('/', routes);
+    
+    // ping check
+    app.get('/ping', (req, res, next) => res.status(200).json({ res: 'pong' }));
+
+    // start our server on port 4201
+    http.createServer(app).listen(config.server.port, () => console.log(`Server running on port ${config.server.port}`));
+}
