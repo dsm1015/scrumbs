@@ -3,8 +3,10 @@ import express from 'express';
 import mongoose, { startSession } from 'mongoose'
 import http from 'http';
 import { config } from './config/config'
-import { routes } from './routes';
 import Log from './server-log';
+
+//Route imports
+import userRoutes from './routes/user.routes'
 
 const app = express();
 
@@ -51,11 +53,18 @@ const StartServer = () => {
         next();
     });
     
-    // use routes
-    app.use('/', routes);
+    // ROUTES
+    app.use('/users/', userRoutes);
     
-    // ping check
-    app.get('/ping', (req, res, next) => res.status(200).json({ res: 'pong' }));
+    // PING CHECK
+    app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
+
+    // ERROR HANDELING
+    app.use((req, res, next) => {
+        const error = new Error("not found");
+        Log.error(error);
+        return res.status(404).json({ message: error.message});
+    });
 
     // start our server on port 4201
     http.createServer(app).listen(config.server.port, () => console.log(`Server running on port ${config.server.port}`));

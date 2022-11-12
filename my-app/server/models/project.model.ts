@@ -13,8 +13,7 @@ const ProjectSchema: Schema = new Schema(
         description: { type: String, reuired: true}  
     },
     {
-        timestamps: true,
-        versionKey: false
+        timestamps: true
     }
 );
 
