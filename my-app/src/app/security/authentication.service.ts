@@ -32,39 +32,40 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         //send login data to server
-        return this.http.post<User>(`${environment.API_URL}/api/authenticate`, { username, password })
+        return this.http.post<User>(`${environment.API_URL}/users/session`, { username, password })
         .subscribe((res:any) => {
             this.setSession(res)
-            this.getUserProfile(res._id).subscribe((res) => {
+            this.getUserProfile(res.userId).subscribe((res) => {
                 this.currentUser = res;
-                this.router.navigate(['/dashboard' + res.msg._id]);
+                console.log(this.currentUser);
+                this.router.navigate(['/dashboard']);
               });
         })
     }
 
+    // get token from local storage
     getToken() {
         return localStorage.getItem('id_token');
     }
 
+    // get user profile, pass in token and verify
     getUserProfile(id: any): Observable<any> {
-        let api = `${environment.API_URL}/api/user-profile/${id}`;
+        const api = `${environment.API_URL}/users/get/${id}`;
         return this.http.get(api, { headers: this.headers }).pipe(
           map((res) => {
+            console.log(res);
             return res || {};
           }),
           catchError(this.handleError)
         );
       }
 
-    private setSession(authResult: { expiresIn: any; idToken: string; }) {
-        const expiresAt = moment().add(authResult.expiresIn,'second');
-        localStorage.setItem('id_token', authResult.idToken);
-        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+    private setSession(authResult: any ) {
+        localStorage.setItem('id_token', authResult.userToken);
     }
 
     logout() {
         localStorage.removeItem("id_token");
-        localStorage.removeItem("expires_at");
         this.router.navigate(['/login'])
     }
 

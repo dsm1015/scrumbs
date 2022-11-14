@@ -1,7 +1,7 @@
 <!-- Top nav bar -->
 <div>
     <mat-toolbar class="top-nav-bar">
-        <img src="../../../assets/android-chrome-192x192.png">
+        <a routerLink="/dashboard"><img src="../../../assets/android-chrome-192x192.png"></a>
         <span class="spacer" style="width: 25px;"></span>
         <span class="title">Scrumbs</span>
         <span class="spacer" style="width: 25px;"></span>
@@ -9,8 +9,10 @@
         <span class="spacer" style="width: 50px;"></span>
         <button mat-icon-button routerLink='/projects'>Projects</button>
         <span class="spacer" style="width: 35px;"></span>
-        <button mat-icon-button routerLink='/settings'>Settings</button>
-        <span class="spacer" style="width: 40px;"></span>
+        <button mat-icon-button routerLink='/report-viewer'>Report Viewer</button>
+        <span class="spacer" style="width: 65px;"></span>
+        <button mat-icon-button routerLink='/settings'>Admin Tools</button>
+        <span class="spacer" style="width: 65px;"></span>
         <button mat-icon-button (click)="logout()">Sign Out</button>
     </mat-toolbar>
 </div>
