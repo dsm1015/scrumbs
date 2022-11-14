@@ -11,6 +11,7 @@ import { AdminComponent } from './protected/admin/admin.component';
 import { NavComponent } from './protected/nav/nav.component';
 import { ReportViewerComponent } from './protected/report-viewer/report-viewer.component';
 import { AuthInterceptor } from './security/authconfig.interceptor'
+import { ProjectDialogComponent } from './protected/project-manager/project-dialog.component';
 
 //Angular Material Imports
 import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
@@ -25,6 +26,8 @@ import { MatListModule } from '@angular/material/list'; //list
 import { MatSelectModule } from '@angular/material/select'; //select
 import { MatDatepickerModule } from '@angular/material/datepicker'; //datepicker
 import { MatNativeDateModule } from '@angular/material/core'; //date
+import { MatDialogModule } from '@angular/material/dialog'; //dialog
+import { MatMenuModule } from '@angular/material/menu';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
@@ -42,7 +45,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     ProjectManagerComponent,
     AdminComponent,
     NavComponent,
-    ReportViewerComponent
+    ReportViewerComponent,
+    ProjectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,9 +64,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
     //FontAwesomeModule
   ],
   providers: [

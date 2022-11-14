@@ -7,8 +7,16 @@ import { AuthenticationService } from 'src/app/security/authentication.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  //user var
+  public isEng: boolean;
+  public isStake: boolean;
+  public isAdmin: boolean;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService) { 
+    this.isEng=false;
+    this.isStake=false;
+    this.isAdmin=true;
+  }
 
   ngOnInit(): void {
   }

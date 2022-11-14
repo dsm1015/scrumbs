@@ -2,21 +2,10 @@
     <!-- Top nav bar -->
     <app-nav></app-nav>
 
-    <!-- Left nav bar -->
     <div>
-        <mat-drawer-container class="sidenav">
-            <mat-drawer mode="side" class="setting-list" opened>
-                <h2>Settings:</h2>
-                <button mat-icon-button>User Management</button>
-                <br>
-                <button mat-icon-button>Team Management</button>
-                <br>
-                <button mat-icon-button>Log Viewer</button>
-            </mat-drawer>
-            <mat-drawer-content>
-                <!-- Cards for varying project tasks -->
-                <div>
-                    <mat-card class="project-card"> <!-- User Management -->
+        <!-- Cards for varying project tasks -->
+        <div>
+            <mat-card class="big-admin-card"> <!-- User Management -->
                         <mat-card-title>
                             User Management:   
                         </mat-card-title>
@@ -122,9 +111,8 @@
                                     </mat-card>
                             </div>
                         </div>
-                    </mat-card>
-
-                    <mat-card class="project-card"> <!-- Team Management -->
+            </mat-card>
+            <mat-card class="big-admin-card"> <!-- Team Management -->
                         <mat-card-title>
                             Team Management:
                         </mat-card-title>
@@ -202,9 +190,8 @@
                                     </mat-card>
                             </div>
                         </div>
-                    </mat-card>
-
-                    <mat-card class="project-card">
+            </mat-card>
+            <mat-card class="big-admin-card"> <!-- Log Viewer -->
                         <mat-card-title>
                             Log Viewer:
                         </mat-card-title>
@@ -219,11 +206,12 @@
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
                             </mat-form-field>
-                            <button mat-raised-button class="admin-button" type="submit">View Logs</button>
+                            <button mat-raised-button class="button" type="submit">View Logs</button>
+                            <br>
+                            <br>
+                            <p>Logs go here</p>
                         </div>
-                    </mat-card>
-                </div>
-            </mat-drawer-content>
-        </mat-drawer-container>
+            </mat-card>
+        </div>
     </div>
 </body>

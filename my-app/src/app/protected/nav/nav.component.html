@@ -1,5 +1,5 @@
 <!-- Top nav bar -->
-<div>
+<div *ngIf="this.isAdmin==true"> <!-- Admin Nav -->
     <mat-toolbar class="top-nav-bar">
         <a routerLink="/dashboard"><img src="../../../assets/android-chrome-192x192.png"></a>
         <span class="spacer" style="width: 25px;"></span>
@@ -12,6 +12,36 @@
         <button mat-icon-button routerLink='/report-viewer'>Report Viewer</button>
         <span class="spacer" style="width: 65px;"></span>
         <button mat-icon-button routerLink='/settings'>Admin Tools</button>
+        <span class="spacer" style="width: 65px;"></span>
+        <button mat-icon-button (click)="logout()">Sign Out</button>
+    </mat-toolbar>
+</div>
+
+<div *ngIf="this.isEng==true"> <!-- Engineer Nav -->
+    <mat-toolbar class="top-nav-bar">
+        <a routerLink="/dashboard"><img src="../../../assets/android-chrome-192x192.png"></a>
+        <span class="spacer" style="width: 25px;"></span>
+        <span class="title">Scrumbs</span>
+        <span class="spacer" style="width: 25px;"></span>
+        <button mat-icon-button routerLink='/dashboard'>Dashboard</button>
+        <span class="spacer" style="width: 50px;"></span>
+        <button mat-icon-button routerLink='/projects'>Projects</button>
+        <span class="spacer" style="width: 35px;"></span>
+        <button mat-icon-button (click)="logout()">Sign Out</button>
+    </mat-toolbar>
+</div>
+
+<div *ngIf="this.isStake==true"> <!-- Stakeholder Nav -->
+    <mat-toolbar class="top-nav-bar">
+        <a routerLink="/dashboard"><img src="../../../assets/android-chrome-192x192.png"></a>
+        <span class="spacer" style="width: 25px;"></span>
+        <span class="title">Scrumbs</span>
+        <span class="spacer" style="width: 25px;"></span>
+        <button mat-icon-button routerLink='/dashboard'>Dashboard</button>
+        <span class="spacer" style="width: 50px;"></span>
+        <button mat-icon-button routerLink='/projects'>Projects</button>
+        <span class="spacer" style="width: 35px;"></span>
+        <button mat-icon-button routerLink='/report-viewer'>Report Viewer</button>
         <span class="spacer" style="width: 65px;"></span>
         <button mat-icon-button (click)="logout()">Sign Out</button>
     </mat-toolbar>
