@@ -31,14 +31,18 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         //send login data to server
-        return this.http.post<User>(`${environment.API_URL}/login`, { username, password })
-        .subscribe((res:any) => {
-            this.setSession(res)
-            this.getUserProfile().subscribe((res) => {
-                this.currentUser = res;
-                this.router.navigate(['/dashboard']);
-              });
-        })
+        const response = this.http.post<User>(`${environment.API_URL}/login`, { username, password });
+        const observer = {
+            next: (res: any) => {
+                this.setSession(res);
+                this.getUserProfile().subscribe((res) => {
+                    this.currentUser = res;
+                    this.router.navigate(['/dashboard']);
+                    });
+                },
+            error: (err: Error) => console.log(err)
+        };
+        return response.subscribe(observer);
     }
 
     // get token from local storage
@@ -68,7 +72,10 @@ export class AuthenticationService {
     }
 
     public isLoggedIn() {
-        return moment().isBefore(this.getExpiration());
+       if(this.getToken()){
+            return true;
+       }
+       return false;
     }
 
     isLoggedOut() {

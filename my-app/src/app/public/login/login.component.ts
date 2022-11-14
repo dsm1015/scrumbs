@@ -27,7 +27,7 @@ export class LoginComponent{
   login(){
     const val = this.loginForm.value;
     if(val.username && val.password){
-      this.authService.login(val.username, val.password)
+      const res = this.authService.login(val.username, val.password);
     }
   }
 
