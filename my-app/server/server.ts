@@ -5,10 +5,11 @@ import http from 'http';
 
 import { config } from './config/config'
 import Log from './server-log';
-import { isAdmin, verifyToken } from './security/token';
+import {verifyAdminToken, verifyToken } from './security/token';
 
 //Route imports
 import userRoutes from './routes/user.routes'
+import loginRoutes from './routes/login.routes'
 
 const app = express();
 
@@ -56,33 +57,38 @@ const StartServer = () => {
         if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
             const token = req.headers.authorization.split(' ')[1];
 
-            const isTokenValid = verifyToken(token);
+            /* const isTokenValid = verifyToken(token);
             if(isTokenValid){
                 //valid token!
                 console.log("this request is valid");
-            }
+            } */
 
-            const isUserAdmin = isAdmin(token);
+            /* const isUserAdmin = isAdmin(token)
             if(isUserAdmin){
                 //admin!
                 console.log("this request is from an admin!");
-            }
+            } */
         }
         next();
     });
     
     // ROUTES //
-    app.use('/users/', userRoutes);
-    
-    // PING CHECK //
-    app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
 
-    // ERROR HANDELING //
-    app.use((req, res, next) => {
-        const error = new Error("not found");
-        Log.error(error);
-        return res.status(404).json({ message: error.message});
-    });
+        // PUBLIC //
+        app.use('/login/', loginRoutes);
+
+        // PROTECTED //
+        app.use('/users/', verifyAdminToken, userRoutes);
+    
+        // PING CHECK //
+        app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
+
+        // ERROR HANDELING //
+        app.use((req, res, next) => {
+            const error = new Error("not found");
+            Log.error(error);
+            return res.status(404).json({ message: error.message});
+        });
 
     // START SERVER //
     http.createServer(app).listen(config.server.port, () => console.log(`Server running on port ${config.server.port}`));

@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { config } from '../config/config';
+import { NextFunction, Request, Response } from "express";
 import * as fs from 'fs';
 import path from 'path';
 
@@ -29,24 +30,80 @@ export function generateToken(user: any){
     }
 }
 
-export function verifyToken(token: any): boolean{
-    try{
-        const decoded = jwt.verify(token, publicKey);
-            return true;
-        }catch(error){
-        //terminate session
-        console.log(error);
-        return false;
+export function getToken(req: Request){
+    const token = req.headers.authorization
+    if(token){
+        return token.split(' ')[1];
+    }
+    return token
+}
+
+export function verifyToken(req: Request, res: Response ,next: NextFunction){
+    const token = getToken(req);
+    if(!token){
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.',
+        });
+    } else {
+        jwt.verify(token, publicKey, (err, decoded) => {
+            if (err) {
+                return res.json({
+                    success: false,
+                    message: 'Failed to authenticate token.',
+                })
+            } else {
+                //req.decoded = decoded
+                console.log("TOKEN VALID!!", decoded);
+                next();
+            }
+        });
     }
 }
 
-export function isAdmin(token: any): boolean{
-    var retval = false;
+export function verifyAdminToken(req: Request, res: Response ,next: NextFunction){
+    const token = getToken(req);
+    if(!token){
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.',
+        });
+    } else {
+        jwt.verify(token, publicKey, function(err: any, decoded: any){
+            if (err) {
+                return res.status(403).json({
+                    success: false,
+                    message: 'Failed to authenticate token.',
+                });
+            } else {
+                if (decoded.role === 'admin'){
+                    console.log("ADMIN AUTHORIZED", decoded);
+                    next();
+                }
+                else{
+                    return res.status(403).json({
+                        success: false,
+                        message: 'Requires Admin.',
+                    });
+                }
+            }
+        });
+    }
+}
+
+export function getTokenRole(token: any): string{
+    var role: string = ''
     jwt.verify(token, publicKey, function(err: any, decoded: any){
-        decoded.role === 'admin'?  retval = true : retval = false;
-        if(err){
-            retval = false;
+        if (err) {
+            return role;
+        } else {
+            role = decoded.role;
+            if(role){
+                return role;
+            } else {
+                return '';
+            }
         }
     });
-    return retval;
+    return role;
 }

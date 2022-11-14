@@ -32,12 +32,11 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         //send login data to server
-        return this.http.post<User>(`${environment.API_URL}/users/session`, { username, password })
+        return this.http.post<User>(`${environment.API_URL}/login`, { username, password })
         .subscribe((res:any) => {
             this.setSession(res)
-            this.getUserProfile(res.userId).subscribe((res) => {
+            this.getUserProfile().subscribe((res) => {
                 this.currentUser = res;
-                console.log(this.currentUser);
                 this.router.navigate(['/dashboard']);
               });
         })
@@ -49,8 +48,8 @@ export class AuthenticationService {
     }
 
     // get user profile, pass in token and verify
-    getUserProfile(id: any): Observable<any> {
-        const api = `${environment.API_URL}/users/get/${id}`;
+    getUserProfile(): Observable<any> {
+        const api = `${environment.API_URL}/login/role`;
         return this.http.get(api, { headers: this.headers }).pipe(
           map((res) => {
             console.log(res);
@@ -97,20 +96,5 @@ export class AuthenticationService {
         msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
         return throwError(msg);
-    }
-    
-    //create token with secret key, send token back to the client
-    CreateToken(loginRequest: LoginRequest){
-        // return token or invalid response
-    }
-
-    //validate token has not been tampered with
-    AuthenticateToken(token: LoginResponse){
-        // return valid or generate error for valid
-    }
-
-    //provide vague error if auth fails
-    generateError(){
-        //incorrect user/pass
     }
 }
