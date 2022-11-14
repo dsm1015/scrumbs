@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core"
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { tap, shareReplay, map, catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import {LoginRequest, LoginResponse} from'../public/interfaces'
 import { User } from '../_models/user'
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";

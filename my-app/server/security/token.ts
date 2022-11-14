@@ -1,5 +1,4 @@
 import * as jwt from 'jsonwebtoken';
-import { config } from '../config/config';
 import { NextFunction, Request, Response } from "express";
 import * as fs from 'fs';
 import path from 'path';
@@ -92,7 +91,7 @@ export function verifyAdminToken(req: Request, res: Response ,next: NextFunction
 }
 
 export function getTokenRole(token: any): string{
-    var role: string = ''
+    var role = ''
     jwt.verify(token, publicKey, function(err: any, decoded: any){
         if (err) {
             return role;

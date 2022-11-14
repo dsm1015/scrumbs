@@ -5,7 +5,7 @@ import http from 'http';
 
 import { config } from './config/config'
 import Log from './server-log';
-import {verifyAdminToken, verifyToken } from './security/token';
+import {verifyAdminToken, verifyToken} from './security/token';
 
 //Route imports
 import userRoutes from './routes/user.routes'
