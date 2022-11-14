@@ -8,11 +8,21 @@ const MONGO_URL = `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@scrumbscluster.xwzi
 
 const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 4201;
 
+const SALT_FACTOR: number = 10;
+
+const SECRET_KEY = process.env.SECRET_KEY || '';
+
 export const config = {
     mongo : {
         url: MONGO_URL
     },
     server: {
         port: SERVER_PORT
+    },
+    salt: {
+        factor: SALT_FACTOR
+    },
+    secret: {
+        key: SECRET_KEY
     }
 }
