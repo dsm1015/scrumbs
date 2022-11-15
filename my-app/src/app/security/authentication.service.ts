@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { User } from '../_models/user'
+import { CurrentUser } from '../_models/current-user'
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 
@@ -13,25 +13,25 @@ import { Router } from "@angular/router";
 })
 
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User> | undefined;
-    public currentUser: Observable<User> | undefined;
+    private currentUserSubject: BehaviorSubject<CurrentUser> | undefined;
+    public currentUser: Observable<CurrentUser> | undefined;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     constructor(private http: HttpClient, private router: Router){
         const userJson = localStorage.getItem('currentUser');
         if(userJson){
-            this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(userJson))
+            this.currentUserSubject = new BehaviorSubject<CurrentUser>(JSON.parse(userJson))
             this.currentUser = this.currentUserSubject.asObservable();
         }
     }
 
-    public get currentUserValue(): User | undefined {
+    public get currentUserValue(): CurrentUser | undefined {
         return this.currentUserSubject?.value;
     }
 
     login(username: string, password: string) {
         //send login data to server
-        const response = this.http.post<User>(`${environment.API_URL}/login`, { username, password });
+        const response = this.http.post<CurrentUser>(`${environment.API_URL}/login`, { username, password });
         const observer = {
             next: (res: any) => {
                 this.setSession(res);

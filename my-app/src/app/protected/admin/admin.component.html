@@ -15,35 +15,37 @@
                                         <mat-card-title>
                                             Create a User
                                         </mat-card-title>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Username">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field>
-                                            <input matInput type="password" placeholder="Password">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>User Type:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="engineer">Engineer</option>
-                                                <option value="master">Master</option>
-                                                <option value="stakeholder">Stakeholder</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Assigned Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="d1">Team 1</option>
-                                                <option value="d2">Team 2</option>
-                                                <option value="d3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Create User</button>
+                                        <form [formGroup]="createUserForm" >
+                                            <mat-form-field>
+                                                <input matInput placeholder="Username" formControlName="username">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput type="password" placeholder="Password" formControlName="password">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>User Type:</mat-label>
+                                                <select matNativeControl required formControlName="role">
+                                                    <option value="none">--</option>
+                                                    <option value="engineer">Engineer</option>
+                                                    <option value="master">Master</option>
+                                                    <option value="stakeholder">Stakeholder</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Assigned Team:</mat-label>
+                                                <select matNativeControl required formControlName="team">
+                                                    <option value="none">--</option>
+                                                    <option value="d1">Team 1</option>
+                                                    <option value="d2">Team 2</option>
+                                                    <option value="d3">Team 3</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="createUser()" >Create User</button>
+                                        </form>
                                     </mat-card>
                             </div>
                             <div> <!-- User Modification -->
@@ -54,10 +56,7 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>Select a User:</mat-label>
                                             <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="user1">Luke</option>
-                                                <option value="user2">Douglas</option>
-                                                <option value="user3">Alec</option>
+                                                <option *ngFor="let user of users" [value]="user.username" >{{user.username}}</option>
                                             </select>
                                         </mat-form-field>
                                         <br>

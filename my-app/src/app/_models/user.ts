@@ -1,5 +1,10 @@
-
 export class User {
     id!: string;
-    token!: string;
+    username!: string;
+    password?: string;
+    role!: string;
+}
+
+export class Users {
+    users: User[] = [];
 }

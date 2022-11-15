@@ -1,20 +1,65 @@
-/*
-import * as mongoDB from "mongodb";
-import * as dotenv from "dotenv";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
+import { User, Users } from "../_models/user";
 
-//pull in connection string ENV
-//db name
-//
+@Injectable({
+    providedIn: 'root'
+})
 
-export async function connectToDatabase () {
-    dotenv.config();
- 
-    const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING);
-            
-    await client.connect();
+export class OrchestrationService{
+    
+    constructor(private http: HttpClient){
         
-    const db: mongoDB.Db = client.db(process.env.DB_NAME);
-   
+    }
 
- }
- */
+    // TEAMS //
+
+    createTeam(){
+
+    }
+
+    updateTeam(){
+
+    }
+
+    readTeam(){
+
+    }
+    
+    readAllTeams(){
+
+    }
+
+    deleteTeam(){
+
+    }
+
+
+    // USERS //
+
+    createUser(user: any) {
+        return this.http.post(`${environment.API_URL}/users/create`, { user });
+    }
+
+    readUser(){
+
+    }
+
+    readAllUsers(){
+        return this.http.get<Users>(`${environment.API_URL}/users/get/`);
+    }
+
+    updateUser(user: any, id: any){
+        return this.http.patch(`${environment.API_URL}/users/update/${id}`, { user });
+
+    }
+
+    deleteUser(){
+
+    }
+
+    // PROJECTS //
+
+
+}

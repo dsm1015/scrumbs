@@ -10,6 +10,7 @@ import {verifyAdminToken, verifyToken} from './security/token';
 //Route imports
 import userRoutes from './routes/user.routes'
 import loginRoutes from './routes/login.routes'
+import teamRoutes from './routes/team.routes';
 
 const app = express();
 
@@ -79,6 +80,7 @@ const StartServer = () => {
 
         // PROTECTED //
         app.use('/users/', verifyAdminToken, userRoutes);
+        app.use('/teams/', teamRoutes);
     
         // PING CHECK //
         app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));

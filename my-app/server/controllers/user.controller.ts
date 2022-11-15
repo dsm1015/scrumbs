@@ -3,14 +3,16 @@ import mongoose from 'mongoose';
 import User from '../models/user.model';
 
 const createUser = (req: Request, res: Response, next: NextFunction) => {
-    const { username, password, role } = req.body;
+    const { username, password, role, team } = req.body.user;
 
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         username,
         password,
-        role
+        role,
+        team
     });
+    console.log(user);
 
     return user
         .save()

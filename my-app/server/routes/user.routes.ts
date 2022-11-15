@@ -3,7 +3,6 @@ import controller from '../controllers/user.controller';
 
 const router = express.Router();
 
-
 //CRUM
 router.post('/create', controller.createUser);
 router.get('/get/:userId', controller.readUser);
