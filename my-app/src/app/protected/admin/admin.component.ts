@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
     // ATTRIBUTES //
     users: User[] = [];
     teams: Team[] = [];
+    scrum_masters: User[] = [];
     currentId?: string = '';
     
     constructor(private orchestration: OrchestrationService, private fb: FormBuilder, public dialog: MatDialog){
@@ -120,7 +121,12 @@ export class AdminComponent implements OnInit {
         this.orchestration.readAllUsers().subscribe(data => {
             console.log(data.users)
             this.users = data.users;
+            this.getScrumMasters();
         });
+    }
+    getScrumMasters(){
+        this.scrum_masters = this.users.filter(user => user.role === 'scrum_master');
+        console.log("masters", this.scrum_masters);
     }
 
     getTeams(){
