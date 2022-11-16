@@ -95,6 +95,7 @@ export class AdminComponent implements OnInit {
             this.getUsers();
             //reset form
             this.createUserForm.reset();
+            this.generateMessage(data);
         });
     }
 
