@@ -1,0 +1,36 @@
+<body>
+    <!-- Top nav bar -->
+    <app-nav></app-nav>
+
+    <!-- Left nav bar -->
+    <div>
+        <mat-drawer-container class="sidenav">
+            <mat-drawer mode="side" class="project-list" opened>
+                <h2>Reports:</h2>
+                <button mat-icon-button (click)="getReportInfo('09.01.22')">09.01.22</button>
+                <br>
+                <button mat-icon-button (click)="getReportInfo('10.01.22')">10.01.22</button>
+                <br>
+                <button mat-icon-button (click)="getReportInfo('11.01.22')">11.01.22</button>
+            </mat-drawer>
+            <mat-drawer-content>
+                <!-- Cards for varying project tasks -->
+                <mat-card fxFlex="stretch" class="report-card">
+                    <mat-card-title>
+                        Report:
+                    </mat-card-title>
+                    <h2>
+                        <p>Title: {{selectedReport.title}}</p>
+                    </h2>
+                    <h2>
+                        Report Date:
+                    </h2>
+                    <h2>
+                        Report Information:
+                    </h2>
+                </mat-card>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+
+</body>

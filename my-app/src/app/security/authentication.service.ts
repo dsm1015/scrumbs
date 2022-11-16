@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core"
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { tap, shareReplay, map, catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import {LoginRequest, LoginResponse} from'../public/interfaces'
-import { User } from '../_models/user'
+import { CurrentUser } from '../_models/current-user'
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 
@@ -14,62 +13,69 @@ import { Router } from "@angular/router";
 })
 
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User> | undefined;
-    public currentUser: Observable<User> | undefined;
+    private currentUserSubject: BehaviorSubject<CurrentUser> | undefined;
+    public currentUser: Observable<CurrentUser> | undefined;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     constructor(private http: HttpClient, private router: Router){
         const userJson = localStorage.getItem('currentUser');
         if(userJson){
-            this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(userJson))
+            this.currentUserSubject = new BehaviorSubject<CurrentUser>(JSON.parse(userJson))
             this.currentUser = this.currentUserSubject.asObservable();
         }
     }
 
-    public get currentUserValue(): User | undefined {
+    public get currentUserValue(): CurrentUser | undefined {
         return this.currentUserSubject?.value;
     }
 
     login(username: string, password: string) {
         //send login data to server
-        return this.http.post<User>(`${environment.API_URL}/api/authenticate`, { username, password })
-        .subscribe((res:any) => {
-            this.setSession(res)
-            this.getUserProfile(res._id).subscribe((res) => {
-                this.currentUser = res;
-                this.router.navigate(['/dashboard' + res.msg._id]);
-              });
-        })
+        const response = this.http.post<CurrentUser>(`${environment.API_URL}/login`, { username, password });
+        const observer = {
+            next: (res: any) => {
+                this.setSession(res);
+                this.getUserProfile().subscribe((res) => {
+                    this.currentUser = res;
+                    this.router.navigate(['/dashboard']);
+                    });
+                },
+            error: (err: Error) => console.log(err)
+        };
+        return response.subscribe(observer);
     }
 
+    // get token from local storage
     getToken() {
         return localStorage.getItem('id_token');
     }
 
-    getUserProfile(id: any): Observable<any> {
-        let api = `${environment.API_URL}/api/user-profile/${id}`;
+    // get user profile, pass in token and verify
+    getUserProfile(): Observable<any> {
+        const api = `${environment.API_URL}/login/role`;
         return this.http.get(api, { headers: this.headers }).pipe(
           map((res) => {
+            console.log(res);
             return res || {};
           }),
           catchError(this.handleError)
         );
       }
 
-    private setSession(authResult: { expiresIn: any; idToken: string; }) {
-        const expiresAt = moment().add(authResult.expiresIn,'second');
-        localStorage.setItem('id_token', authResult.idToken);
-        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+    private setSession(authResult: any ) {
+        localStorage.setItem('id_token', authResult.userToken);
     }
 
     logout() {
         localStorage.removeItem("id_token");
-        localStorage.removeItem("expires_at");
         this.router.navigate(['/login'])
     }
 
     public isLoggedIn() {
-        return moment().isBefore(this.getExpiration());
+       if(this.getToken()){
+            return true;
+       }
+       return false;
     }
 
     isLoggedOut() {
@@ -96,20 +102,5 @@ export class AuthenticationService {
         msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
         return throwError(msg);
-    }
-    
-    //create token with secret key, send token back to the client
-    CreateToken(loginRequest: LoginRequest){
-        // return token or invalid response
-    }
-
-    //validate token has not been tampered with
-    AuthenticateToken(token: LoginResponse){
-        // return valid or generate error for valid
-    }
-
-    //provide vague error if auth fails
-    generateError(){
-        //incorrect user/pass
     }
 }

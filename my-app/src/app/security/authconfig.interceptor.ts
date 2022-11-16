@@ -22,28 +22,27 @@ export class AuthInterceptor implements HttpInterceptor {
             .pipe(dematerialize());
 
         function handleRoute() {
-            switch (true) {
-                case url.endsWith('/authenticate') && method === 'POST':
+            return authenticate();
+            /* switch (true) {
+                case url.endsWith('/session') && method === 'POST':
                     return authenticate();
+                case url.endsWith('/get') && method === 'POST':
+                        return authenticate();
                 default:
                     // pass through any requests not handled above
-                    return next.handle(request);
-            }    
+                    return authenticate();
+            }   */  
         }
 
-        // route functions
+        // add tokens to APIs for authentication on server side
         function authenticate() {
-            console.log(idToken)
             if (idToken) {
-                const cloned = request.clone({
-                    headers: request.headers.set("Authorization",
-                        "Bearer " + idToken)
-                });
-    
+                const cloned = request.clone({headers: request.headers.set("Authorization", "Bearer " + idToken)});
+                console.log("CLONE:", cloned);
                 return next.handle(cloned);
             }
             else {
-                console.log(request);
+                console.log("REQ:",request);
                 return next.handle(request);
             }
         }
