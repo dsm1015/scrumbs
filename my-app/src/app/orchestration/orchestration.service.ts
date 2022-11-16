@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { Team, Teams } from "../_models/team";
 import { User, Users } from "../_models/user";
 
 @Injectable({
@@ -15,12 +16,12 @@ export class OrchestrationService{
 
     // TEAMS //
 
-    createTeam(){
-
+    createTeam(team: any){
+        return this.http.post(`${environment.API_URL}/teams/create`, { team });
     }
 
-    updateTeam(){
-
+    updateTeam(team: Team){
+        return this.http.patch(`${environment.API_URL}/teams/update/${team._id}`, { team });
     }
 
     readTeam(){
@@ -28,11 +29,11 @@ export class OrchestrationService{
     }
     
     readAllTeams(){
-
+        return this.http.get<Teams>(`${environment.API_URL}/teams/get/`);
     }
 
-    deleteTeam(){
-
+    deleteTeam(id: any){
+        return this.http.delete(`${environment.API_URL}/teams/delete/${id}`);
     }
 
 
@@ -50,13 +51,12 @@ export class OrchestrationService{
         return this.http.get<Users>(`${environment.API_URL}/users/get/`);
     }
 
-    updateUser(user: any, id: any){
-        return this.http.patch(`${environment.API_URL}/users/update/${id}`, { user });
-
+    updateUser(user: User){
+        return this.http.patch(`${environment.API_URL}/users/update/${user._id}`, { user });
     }
 
-    deleteUser(){
-
+    deleteUser(id: any){
+        return this.http.delete(`${environment.API_URL}/users/delete/${id}`);
     }
 
     // PROJECTS //

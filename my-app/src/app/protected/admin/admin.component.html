@@ -38,9 +38,7 @@
                                                 <mat-label>Assigned Team:</mat-label>
                                                 <select matNativeControl required formControlName="team">
                                                     <option value="none">--</option>
-                                                    <option value="d1">Team 1</option>
-                                                    <option value="d2">Team 2</option>
-                                                    <option value="d3">Team 3</option>
+                                                    <option *ngFor="let team of teams" [value]="team.name" >{{team.name}}</option>
                                                 </select>
                                             </mat-form-field>
                                             <br>
@@ -53,42 +51,43 @@
                                         <mat-card-title>
                                             Modify a User
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a User:</mat-label>
-                                            <select matNativeControl required>
-                                                <option *ngFor="let user of users" [value]="user.username" >{{user.username}}</option>
-                                            </select>
-                                        </mat-form-field>
+                                        <form [formGroup]="modifyUserForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a User:</mat-label>
+                                                <select matNativeControl required formControlName="id">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let user of users" [value]="user._id" >{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Change username" formControlName="username">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput type="password" placeholder="Change password" formControlName="password">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Change User Type:</mat-label>
+                                                <select matNativeControl required formControlName="role">
+                                                    <option value="none">--</option>
+                                                    <option value="engineer">Engineer</option>
+                                                    <option value="master">Master</option>
+                                                    <option value="stakeholder">Stakeholder</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Change Team:</mat-label>
+                                                <select matNativeControl required formControlName="team">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let team of teams" [value]="team.name" >{{team.name}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                        </form>
                                         <br>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Change username">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field>
-                                            <input matInput type="password" placeholder="Change password">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Change User Type:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="engineer">Engineer</option>
-                                                <option value="master">Master</option>
-                                                <option value="stakeholder">Stakeholder</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Change Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="d1">Team 1</option>
-                                                <option value="d2">Team 2</option>
-                                                <option value="d3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Apply Changes</button>
+                                        <button mat-raised-button class="admin-button" type="submit" (click)="modifyUser()">Apply Changes</button>
                                     </mat-card>
                             </div>
                             <div> <!-- User Deletion -->
@@ -96,17 +95,17 @@
                                         <mat-card-title>
                                             Delete a User
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a User:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="user1">Luke</option>
-                                                <option value="user2">Douglas</option>
-                                                <option value="user3">Alec</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Delete User</button>
+                                        <form [formGroup]="deleteUserForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a User:</mat-label>
+                                                <select matNativeControl required formControlName="id">
+                                                    <option value="none">--</option>
+                                                    <option  *ngFor="let user of users" [value]="user._id">{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="deleteUser()">Delete User</button>
+                                        </form>
                                     </mat-card>
                             </div>
                         </div>
@@ -121,21 +120,21 @@
                                         <mat-card-title>
                                             Create a Team
                                         </mat-card-title>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Team Name">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Assign a Scrum Master:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="luke">Luke</option>
-                                                <option value="douglas">Douglas</option>
-                                                <option value="alec">Alec</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Create Team</button>
+                                        <form [formGroup]="createTeamForm" >
+                                            <mat-form-field>
+                                                <input matInput placeholder="Team Name" formControlName="name">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Assign a Scrum Master:</mat-label>
+                                                <select matNativeControl required formControlName="scrum_master">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let user of users" [value]="user.username" >{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="createTeam()">Create Team</button>
+                                        </form>
                                     </mat-card>
                             </div>
                             <div> <!-- Team Modification -->
@@ -143,31 +142,29 @@
                                         <mat-card-title>
                                             Modify a Team
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="team1">Team 1</option>
-                                                <option value="team2">Team 2</option>
-                                                <option value="team3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Change team name">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Change Scrum Master:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="luke">Luke</option>
-                                                <option value="douglas">Douglas</option>
-                                                <option value="alec">Alec</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Apply Changes</button>
+                                        <form [formGroup]="modifyTeamForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a Team:</mat-label>
+                                                <select matNativeControl required formControlName="id">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Change team name" formControlName="name">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Change Scrum Master:</mat-label>
+                                                <select matNativeControl required formControlName="scrum_master">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let user of users" [value]="user.username" >{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="modifyTeam()">Apply Changes</button>
+                                        </form>
                                     </mat-card>
                             </div>
                             <div> <!-- Team Deletion -->
@@ -175,17 +172,17 @@
                                         <mat-card-title>
                                             Delete a Team
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="team1">Team 1</option>
-                                                <option value="team2">Team 2</option>
-                                                <option value="team3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Delete User</button>
+                                        <form [formGroup]="deleteTeamForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a Team:</mat-label>
+                                                <select matNativeControl required formControlName="id">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="deleteTeam()">Delete User</button>
+                                        </form>
                                     </mat-card>
                             </div>
                         </div>
@@ -201,7 +198,7 @@
                                   <input matStartDate placeholder="Start date">
                                   <input matEndDate placeholder="End date">
                                 </mat-date-range-input>
-                                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                                <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
                             </mat-form-field>

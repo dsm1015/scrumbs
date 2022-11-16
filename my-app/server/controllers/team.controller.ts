@@ -4,7 +4,7 @@ import Team from '../models/team.model';
 
 const createTeam = (req: Request, res: Response, next: NextFunction) => {
     console.log("yuh")
-    const { name, scrum_master } = req.body.user;
+    const { name, scrum_master } = req.body.team;
 
     const team = new Team({
         _id: new mongoose.Types.ObjectId(),
@@ -19,7 +19,7 @@ const createTeam = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const readTeam = (req: Request, res: Response, next: NextFunction) => {
-    const teamId = req.params.userId;
+    const teamId = req.params.teamId;
 
     return Team.findById(teamId)
         .then((team) => (team ? res.status(200).json({ team }) : res.status(404).json({ message: 'Not found'})))
@@ -33,7 +33,7 @@ const readAllTeams = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const updateTeam = (req: Request, res: Response, next: NextFunction) => {
-    const teamId = req.params.userId;
+    const teamId = req.params.teamId;
 
     return Team.findById(teamId)
         .then((team) => {
@@ -52,7 +52,7 @@ const updateTeam = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const deleteTeam = (req: Request, res: Response, next: NextFunction) => {
-    const teamId = req.params.userId;
+    const teamId = req.params.teamId;
 
     return Team.findByIdAndDelete(teamId)
         .then((team) => (team ? res.status(201).json({message: 'deleted'}) : res.status(404).json({ message: 'Not Found'})))
