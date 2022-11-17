@@ -20,8 +20,8 @@ export class OrchestrationService{
         return this.http.post(`${environment.API_URL}/teams/create`, { team });
     }
 
-    updateTeam(team: Team){
-        return this.http.patch(`${environment.API_URL}/teams/update/${team._id}`, { team });
+    updateTeam(team: any, id: string){
+        return this.http.patch(`${environment.API_URL}/teams/update/${id}`, { team });
     }
 
     readTeam(){
@@ -51,8 +51,8 @@ export class OrchestrationService{
         return this.http.get<Users>(`${environment.API_URL}/users/get/`);
     }
 
-    updateUser(user: User){
-        return this.http.patch(`${environment.API_URL}/users/update/${user._id}`, { user });
+    updateUser(user: any, id: string){
+        return this.http.patch(`${environment.API_URL}/users/update/${id}`, { user });
     }
 
     deleteUser(id: any){

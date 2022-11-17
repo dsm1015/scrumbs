@@ -41,7 +41,7 @@ const updateUser = (req: Request, res: Response, next: NextFunction) => {
         .then((user) => {
             if(user)
             {
-                user.set(req.body);
+                user.set(req.body.user);
                 return user
                     .save()
                     .then(user => res.status(201).json({user}))

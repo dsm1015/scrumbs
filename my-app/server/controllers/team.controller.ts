@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import Team from '../models/team.model';
 
 const createTeam = (req: Request, res: Response, next: NextFunction) => {
-    console.log("yuh")
     const { name, scrum_master } = req.body.team;
 
     const team = new Team({
@@ -39,7 +38,7 @@ const updateTeam = (req: Request, res: Response, next: NextFunction) => {
         .then((team) => {
             if(team)
             {
-                team.set(req.body);
+                team.set(req.body.team);
                 return team
                     .save()
                     .then((team) => res.status(201).json({team}))

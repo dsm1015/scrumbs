@@ -26,7 +26,8 @@ export class AdminComponent implements OnInit {
     users: User[] = [];
     teams: Team[] = [];
     scrum_masters: User[] = [];
-    currentId?: string = '';
+    currentUserId?: string = '';
+    currentTeamId?: string = '';
     
     constructor(private orchestration: OrchestrationService, private fb: FormBuilder, public dialog: MatDialog){
         // User
@@ -37,7 +38,6 @@ export class AdminComponent implements OnInit {
             team: ['',Validators.required],
         });
         this.modifyUserForm = this.fb.group({
-            id: ['',Validators.required],
             username: ['',Validators.required],
             password: ['',[Validators.required, Validators.minLength(6)]],
             role: ['',Validators.required],
@@ -52,7 +52,6 @@ export class AdminComponent implements OnInit {
             scrum_master: ['',Validators.required]
         });
         this.modifyTeamForm = this.fb.group({
-            id: ['',Validators.required],
             name: ['',Validators.required],
             scrum_master: ['',Validators.required]
         });
@@ -72,7 +71,7 @@ export class AdminComponent implements OnInit {
     generateMessage(data: any){
         let dialogRef = this.dialog.open(MessageDialogComponent, {
             width: '250px',
-            data: { data }
+            data: { message: data }
           });
         
           dialogRef.afterClosed().subscribe(result => {
@@ -88,11 +87,12 @@ export class AdminComponent implements OnInit {
     }
 
     createUser(){
-        console.log(this.createUserForm.value);
         this.orchestration.createUser(this.createUserForm.value).subscribe(data => {
             console.log('message', data);
             //refresh users
             this.getUsers();
+            //throw message to user
+            this.generateMessage("User Created");
             //reset form
             this.createUserForm.reset();
         });
@@ -102,19 +102,28 @@ export class AdminComponent implements OnInit {
         this.orchestration.deleteUser(this.deleteUserForm.value.id).subscribe(data => {
             //refresh users
             this.getUsers();
+            //throw message to user
+            this.generateMessage("User Deleted");
             //reset form
             this.deleteUserForm.reset();
         });
     }
 
     modifyUser(){
-        this.orchestration.updateUser(this.modifyUserForm.value).subscribe(data => {
-            console.log('message', data);
-            //refresh users
-            this.getUsers();
-            //reset form
-            this.modifyUserForm.reset();
-        })
+        const userId = this.currentUserId;
+        if(userId){
+            this.orchestration.updateUser(this.modifyUserForm.value, userId).subscribe(data => {
+                console.log('message', data);
+                //refresh users
+                this.getUsers();
+                //throw message to user
+                this.generateMessage("User Modified");
+                //reset form
+                this.modifyUserForm.reset();
+            })
+        } else {
+            console.log("no id found");
+        }
     }
 
     getUsers(){
@@ -141,25 +150,36 @@ export class AdminComponent implements OnInit {
             console.log('message', data);
             //refresh teams
             this.getTeams();
+            //throw message to user
+            this.generateMessage("Team Created");
             //reset form
             this.createTeamForm.reset();
         });
     }
 
     modifyTeam(){
-        this.orchestration.updateTeam(this.modifyTeamForm.value).subscribe(data => {
-            console.log('message', data);
-            //refresh teams
-            this.getTeams();
-            //reset form
-            this.modifyTeamForm.reset();
-        })
+        const teamId = this.currentTeamId;
+        if(teamId){
+            this.orchestration.updateTeam(this.modifyTeamForm.value, teamId).subscribe(data => {
+                console.log('message', data);
+                //refresh teams
+                this.getTeams();
+                //throw message to user
+                this.generateMessage("Team Modified");
+                //reset form
+                this.modifyTeamForm.reset();
+            })
+        } else {
+            console.log("no team Id found.")
+        }
     }
 
     deleteTeam(){
         this.orchestration.deleteTeam(this.deleteTeamForm.value.id).subscribe(data => {
             //refresh teams
             this.getTeams();
+            //throw message to user
+            this.generateMessage("Team Deleted");
             //reset form
             this.deleteTeamForm.reset();
         });

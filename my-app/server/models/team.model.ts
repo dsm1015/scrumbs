@@ -12,8 +12,8 @@ export interface ITeamModel extends ITeam, Document {}
 const TeamSchema: Schema = new Schema(
     {
         name: { type: String, required: true, index: {unique: true}},
-        scrum_master: {type: String, required:true, ref: 'User'},
-        members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}]
+        scrum_master: {type: String, required:true, ref: 'users'},
+        members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true}]
     },
     {
         timestamps: true,

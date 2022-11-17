@@ -38,7 +38,7 @@
                                                 <mat-label>Assigned Team:</mat-label>
                                                 <select matNativeControl required formControlName="team">
                                                     <option value="none">--</option>
-                                                    <option *ngFor="let team of teams" [value]="team.name" >{{team.name}}</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
                                                 </select>
                                             </mat-form-field>
                                             <br>
@@ -54,9 +54,9 @@
                                         <form [formGroup]="modifyUserForm" >
                                             <mat-form-field appearance="fill">
                                                 <mat-label>Select a User:</mat-label>
-                                                <select matNativeControl required formControlName="id">
+                                                <select matNativeControl required [(ngModel)]="currentUserId" [ngModelOptions]="{standalone: true}">
                                                     <option value="none">--</option>
-                                                    <option *ngFor="let user of users" [value]="user._id" >{{user.username}}</option>
+                                                    <option *ngFor="let user of users" [value]="user._id">{{user.username}}</option>
                                                 </select>
                                             </mat-form-field>
                                             <br>
@@ -82,7 +82,7 @@
                                                 <mat-label>Change Team:</mat-label>
                                                 <select matNativeControl required formControlName="team">
                                                     <option value="none">--</option>
-                                                    <option *ngFor="let team of teams" [value]="team.name" >{{team.name}}</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
                                                 </select>
                                             </mat-form-field>
                                         </form>
@@ -129,7 +129,7 @@
                                                 <mat-label>Assign a Scrum Master:</mat-label>
                                                 <select matNativeControl required formControlName="scrum_master">
                                                     <option value="none">--</option>
-                                                    <option *ngFor="let user of scrum_masters" [value]="user.username" >{{user.username}}</option>
+                                                    <option *ngFor="let user of scrum_masters" [value]="user._id" >{{user.username}}</option>
                                                 </select>
                                             </mat-form-field>
                                             <br>
@@ -145,7 +145,7 @@
                                         <form [formGroup]="modifyTeamForm" >
                                             <mat-form-field appearance="fill">
                                                 <mat-label>Select a Team:</mat-label>
-                                                <select matNativeControl required formControlName="id">
+                                                <select matNativeControl required [(ngModel)]="currentTeamId" [ngModelOptions]="{standalone: true}">
                                                     <option value="none">--</option>
                                                     <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
                                                 </select>
@@ -159,7 +159,7 @@
                                                 <mat-label>Change Scrum Master:</mat-label>
                                                 <select matNativeControl required formControlName="scrum_master">
                                                     <option value="none">--</option>
-                                                    <option *ngFor="let user of scrum_masters" [value]="user.username" >{{user.username}}</option>
+                                                    <option *ngFor="let user of scrum_masters" [value]="user._id" >{{user.username}}</option>
                                                 </select>
                                             </mat-form-field>
                                             <br>

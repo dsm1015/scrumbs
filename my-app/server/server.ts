@@ -11,6 +11,7 @@ import {verifyAdminToken, verifyToken} from './security/token';
 import userRoutes from './routes/user.routes'
 import loginRoutes from './routes/login.routes'
 import teamRoutes from './routes/team.routes';
+import projectRoutes from './routes/project.routes';
 
 const app = express();
 
@@ -51,7 +52,7 @@ const StartServer = () => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
         if('OPTIONS' === req.method) {
-            res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, HEAD, POST, PUT, DELETE')
+            res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, HEAD, POST, PUT, DELETE, PATCH')
             return res.status(200).json({});
         }
         // if the API Request passes a token, verify and determine if they are admin
@@ -79,8 +80,9 @@ const StartServer = () => {
         app.use('/login/', loginRoutes);
 
         // PROTECTED //
-        app.use('/users/', verifyAdminToken, userRoutes);
+        app.use('/users/', userRoutes);
         app.use('/teams/', teamRoutes);
+        app.use('/projects/', projectRoutes)
     
         // PING CHECK //
         app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
