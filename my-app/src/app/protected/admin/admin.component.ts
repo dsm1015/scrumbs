@@ -95,6 +95,7 @@ export class AdminComponent implements OnInit {
             this.generateMessage("User Created");
             //reset form
             this.createUserForm.reset();
+            this.generateMessage(data);
         });
     }
 
