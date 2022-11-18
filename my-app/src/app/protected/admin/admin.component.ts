@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
-import { Team } from 'src/app/_models/team';
-import { User, Users } from '../../_models/user'
+import { Team } from 'src/app/models/team';
+import { User, Users } from '../../models/user'
 import { MessageDialogComponent } from './dialog/message.component';
 
 @Component({

@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 import ProjectTask from '../models/project-tasks.model';
 
 const createProjectTask = (req: Request, res: Response, next: NextFunction) => {
-    const { project, title, description, status } = req.body.project_task;
+    const { projectId, title, description, status } = req.body.project_task;
 
     const project_task = new ProjectTask({
         _id: new mongoose.Types.ObjectId(),
-        project,
+        projectId,
         title,
         description,
         status
@@ -32,6 +32,13 @@ const readAllProjectTasks = (req: Request, res: Response, next: NextFunction) =>
         .then((project_tasks) => res.status(200).json({ project_tasks }))
         .catch((error) => res.status(500).json({error}));
 };
+
+const readAllTasksByProjectId = (req: Request, res: Response, next: NextFunction) => {
+    const passedProjectId = req.params.projectId;
+    return ProjectTask.find({projectId: passedProjectId})
+        .then((project_tasks) => res.status(200).json({ project_tasks }))
+        .catch((error) => res.status(500).json({error}));
+}
 
 const updateProjectTask = (req: Request, res: Response, next: NextFunction) => {
     const projectTaskId = req.params.projectTaskId;
@@ -60,4 +67,4 @@ const deleteProjectTask = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({error}));
 };
 
-export default { createProjectTask, readProjectTask, readAllProjectTasks, updateProjectTask, deleteProjectTask};
+export default { createProjectTask, readProjectTask, readAllProjectTasks, readAllTasksByProjectId, updateProjectTask, deleteProjectTask};

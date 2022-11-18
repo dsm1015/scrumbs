@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Report } from '../../_models/report'
+import { Report } from '../../models/report'
 
 @Component({
   selector: 'app-report-viewer',

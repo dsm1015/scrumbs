@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { Team, Teams } from "../_models/team";
-import { User, Users } from "../_models/user";
+import { Projects, Tasks } from "../models/project";
+import { Team, Teams } from "../models/team";
+import { User, Users } from "../models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -60,6 +61,41 @@ export class OrchestrationService{
     }
 
     // PROJECTS //
+
+    createProject(project: any) {
+        return this.http.post(`${environment.API_URL}/projects/create`, { project });
+    }
+
+    readProject(){
+
+    }
+
+    readAllProjects(){
+        return this.http.get<Projects>(`${environment.API_URL}/projects/get/`);
+    }
+
+    updateProject(project: any, id: string){
+        return this.http.patch(`${environment.API_URL}/projects/update/${id}`, { project });
+    }
+
+    deleteProject(id: any){
+        return this.http.delete(`${environment.API_URL}/projects/delete/${id}`);
+    }
+
+    // TASKS //
+
+    readAllProjectTasks(id: any){
+        return this.http.get<Tasks>(`${environment.API_URL}/projects/tasks/get/${id}`);
+    }
+
+    updateProjectTask(project_task: any, id: string){
+        return this.http.patch(`${environment.API_URL}/projects/tasks/update/${id}`, { project_task } );
+    }
+
+    createProjectTask(project_task: any){
+        return this.http.post(`${environment.API_URL}/projects/tasks/create`, { project_task });
+    }
+
 
 
 }

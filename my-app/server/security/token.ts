@@ -17,7 +17,7 @@ export function generateToken(user: any){
                 privateKey,
                 { 
                     algorithm: 'RS256',
-                    expiresIn: 120,
+                    expiresIn: '3h', // 3 hours
                     subject: user.username
                 });
             return jwtBearerToken;

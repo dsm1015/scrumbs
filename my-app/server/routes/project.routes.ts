@@ -15,8 +15,9 @@ router.delete('/delete/:projectId', ProjectController.deleteProject);
 //CRUM
 // /tasks
 router.post('/tasks/create', TaskController.createProjectTask);
-router.get('/tasks/get/:projectTaskId', TaskController.readProjectTask);
+//router.get('/tasks/get/:projectTaskId', TaskController.readProjectTask);
 router.get('/tasks/get/', TaskController.readAllProjectTasks);
+router.get('/tasks/get/:projectId', TaskController.readAllTasksByProjectId);
 router.patch('/tasks/update/:projectTaskId', TaskController.updateProjectTask);
 router.delete('/tasks/delete/:projectTaskId', TaskController.deleteProjectTask);
 

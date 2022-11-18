@@ -12,6 +12,7 @@ import { NavComponent } from './protected/nav/nav.component';
 import { ReportViewerComponent } from './protected/report-viewer/report-viewer.component';
 import { AuthInterceptor } from './security/authconfig.interceptor'
 import { ProjectDialogComponent } from './protected/project-manager/project-dialog.component';
+import { FilterStatusPipe } from './pipes/filter-status.pipe';
 
 //Angular Material Imports
 import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
@@ -48,7 +49,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     AdminComponent,
     NavComponent,
     ReportViewerComponent,
-    ProjectDialogComponent
+    ProjectDialogComponent,
+    FilterStatusPipe
   ],
   imports: [
     BrowserModule,

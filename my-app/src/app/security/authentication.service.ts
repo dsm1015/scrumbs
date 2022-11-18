@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { CurrentUser } from '../_models/current-user'
+import { CurrentUser } from '../models/current-user'
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 
