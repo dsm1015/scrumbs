@@ -11,6 +11,8 @@ import { AdminComponent } from './protected/admin/admin.component';
 import { NavComponent } from './protected/nav/nav.component';
 import { ReportViewerComponent } from './protected/report-viewer/report-viewer.component';
 import { AuthInterceptor } from './security/authconfig.interceptor'
+import { ProjectDialogComponent } from './protected/project-manager/project-dialog.component';
+import { FilterStatusPipe } from './pipes/filter-status.pipe';
 
 //Angular Material Imports
 import { FlexLayoutModule } from '@angular/flex-layout'; //flex layout
@@ -25,6 +27,12 @@ import { MatListModule } from '@angular/material/list'; //list
 import { MatSelectModule } from '@angular/material/select'; //select
 import { MatDatepickerModule } from '@angular/material/datepicker'; //datepicker
 import { MatNativeDateModule } from '@angular/material/core'; //date
+import { MatDialogModule } from '@angular/material/dialog'; //dialog
+import { MatMenuModule } from '@angular/material/menu'; // menu
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'; //form field
+import { MatTableModule } from '@angular/material/table'; //table
+
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
@@ -42,7 +50,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     ProjectManagerComponent,
     AdminComponent,
     NavComponent,
-    ReportViewerComponent
+    ReportViewerComponent,
+    ProjectDialogComponent,
+    FilterStatusPipe
   ],
   imports: [
     BrowserModule,
@@ -60,9 +70,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatTableModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
     //FontAwesomeModule
   ],
   providers: [
@@ -70,6 +83,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { floatLabel: 'always' },
     }
   ],
   bootstrap: [AppComponent]

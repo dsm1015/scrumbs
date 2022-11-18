@@ -1,20 +1,101 @@
-/*
-import * as mongoDB from "mongodb";
-import * as dotenv from "dotenv";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
+import { Projects, Tasks } from "../models/project";
+import { Team, Teams } from "../models/team";
+import { User, Users } from "../models/user";
 
-//pull in connection string ENV
-//db name
-//
+@Injectable({
+    providedIn: 'root'
+})
 
-export async function connectToDatabase () {
-    dotenv.config();
- 
-    const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING);
-            
-    await client.connect();
+export class OrchestrationService{
+    
+    constructor(private http: HttpClient){
         
-    const db: mongoDB.Db = client.db(process.env.DB_NAME);
-   
+    }
 
- }
- */
+    // TEAMS //
+
+    createTeam(team: any){
+        return this.http.post(`${environment.API_URL}/teams/create`, { team });
+    }
+
+    updateTeam(team: any, id: string){
+        return this.http.patch(`${environment.API_URL}/teams/update/${id}`, { team });
+    }
+
+    readTeam(){
+
+    }
+    
+    readAllTeams(){
+        return this.http.get<Teams>(`${environment.API_URL}/teams/get/`);
+    }
+
+    deleteTeam(id: any){
+        return this.http.delete(`${environment.API_URL}/teams/delete/${id}`);
+    }
+
+
+    // USERS //
+
+    createUser(user: any) {
+        return this.http.post(`${environment.API_URL}/users/create`, { user });
+    }
+
+    readUser(){
+
+    }
+
+    readAllUsers(){
+        return this.http.get<Users>(`${environment.API_URL}/users/get/`);
+    }
+
+    updateUser(user: any, id: string){
+        return this.http.patch(`${environment.API_URL}/users/update/${id}`, { user });
+    }
+
+    deleteUser(id: any){
+        return this.http.delete(`${environment.API_URL}/users/delete/${id}`);
+    }
+
+    // PROJECTS //
+
+    createProject(project: any) {
+        return this.http.post(`${environment.API_URL}/projects/create`, { project });
+    }
+
+    readProject(){
+
+    }
+
+    readAllProjects(){
+        return this.http.get<Projects>(`${environment.API_URL}/projects/get/`);
+    }
+
+    updateProject(project: any, id: string){
+        return this.http.patch(`${environment.API_URL}/projects/update/${id}`, { project });
+    }
+
+    deleteProject(id: any){
+        return this.http.delete(`${environment.API_URL}/projects/delete/${id}`);
+    }
+
+    // TASKS //
+
+    readAllProjectTasks(id: any){
+        return this.http.get<Tasks>(`${environment.API_URL}/projects/tasks/get/${id}`);
+    }
+
+    updateProjectTask(project_task: any, id: string){
+        return this.http.patch(`${environment.API_URL}/projects/tasks/update/${id}`, { project_task } );
+    }
+
+    createProjectTask(project_task: any){
+        return this.http.post(`${environment.API_URL}/projects/tasks/create`, { project_task });
+    }
+
+
+
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Report } from '../../models/report'
 
 @Component({
   selector: 'app-report-viewer',
@@ -7,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportViewerComponent implements OnInit {
 
-  constructor() { }
+  title!: string;
+  date!: number;
+  public selectedReport: Report;
+
+  constructor() {
+    this.selectedReport= new Report('', '', '');
+  }
+
+  getReportInfo(t: string){
+    this.selectedReport.title = t;
+  }
 
   ngOnInit(): void {
   }

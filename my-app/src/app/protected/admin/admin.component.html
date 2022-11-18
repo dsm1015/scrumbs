@@ -2,21 +2,10 @@
     <!-- Top nav bar -->
     <app-nav></app-nav>
 
-    <!-- Left nav bar -->
     <div>
-        <mat-drawer-container class="sidenav">
-            <mat-drawer mode="side" class="setting-list" opened>
-                <h2>Settings:</h2>
-                <button mat-icon-button>User Management</button>
-                <br>
-                <button mat-icon-button>Team Management</button>
-                <br>
-                <button mat-icon-button>Log Viewer</button>
-            </mat-drawer>
-            <mat-drawer-content>
-                <!-- Cards for varying project tasks -->
-                <div>
-                    <mat-card class="project-card"> <!-- User Management -->
+        <!-- Cards for varying project tasks -->
+        <div>
+            <mat-card class="big-admin-card"> <!-- User Management -->
                         <mat-card-title>
                             User Management:   
                         </mat-card-title>
@@ -26,35 +15,35 @@
                                         <mat-card-title>
                                             Create a User
                                         </mat-card-title>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Username">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field>
-                                            <input matInput type="password" placeholder="Password">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>User Type:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="engineer">Engineer</option>
-                                                <option value="master">Master</option>
-                                                <option value="stakeholder">Stakeholder</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Assigned Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="d1">Team 1</option>
-                                                <option value="d2">Team 2</option>
-                                                <option value="d3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Create User</button>
+                                        <form [formGroup]="createUserForm" >
+                                            <mat-form-field>
+                                                <input matInput placeholder="Username" formControlName="username">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput type="password" placeholder="Password" formControlName="password">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>User Type:</mat-label>
+                                                <select matNativeControl required formControlName="role">
+                                                    <option value="none">--</option>
+                                                    <option value="engineer">Engineer</option>
+                                                    <option value="scrum_master">Scrum Master</option>
+                                                    <option value="stakeholder">Stakeholder</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Assigned Team:</mat-label>
+                                                <select matNativeControl required formControlName="team">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="createUser()" >Create User</button>
+                                        </form>
                                     </mat-card>
                             </div>
                             <div> <!-- User Modification -->
@@ -62,45 +51,43 @@
                                         <mat-card-title>
                                             Modify a User
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a User:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="user1">Luke</option>
-                                                <option value="user2">Douglas</option>
-                                                <option value="user3">Alec</option>
-                                            </select>
-                                        </mat-form-field>
+                                        <form [formGroup]="modifyUserForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a User:</mat-label>
+                                                <select matNativeControl required [(ngModel)]="currentUserId" [ngModelOptions]="{standalone: true}">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let user of users" [value]="user._id">{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Change username" formControlName="username">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput type="password" placeholder="Change password" formControlName="password">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Change User Type:</mat-label>
+                                                <select matNativeControl required formControlName="role">
+                                                    <option value="none">--</option>
+                                                    <option value="engineer">Engineer</option>
+                                                    <option value="scrum_master">Scrum Master</option>
+                                                    <option value="stakeholder">Stakeholder</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Change Team:</mat-label>
+                                                <select matNativeControl required formControlName="team">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                        </form>
                                         <br>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Change username">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field>
-                                            <input matInput type="password" placeholder="Change password">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Change User Type:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="engineer">Engineer</option>
-                                                <option value="master">Master</option>
-                                                <option value="stakeholder">Stakeholder</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Change Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="d1">Team 1</option>
-                                                <option value="d2">Team 2</option>
-                                                <option value="d3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Apply Changes</button>
+                                        <button mat-raised-button class="admin-button" type="submit" (click)="modifyUser()">Apply Changes</button>
                                     </mat-card>
                             </div>
                             <div> <!-- User Deletion -->
@@ -108,23 +95,22 @@
                                         <mat-card-title>
                                             Delete a User
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a User:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="user1">Luke</option>
-                                                <option value="user2">Douglas</option>
-                                                <option value="user3">Alec</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Delete User</button>
+                                        <form [formGroup]="deleteUserForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a User:</mat-label>
+                                                <select matNativeControl required formControlName="id">
+                                                    <option value="none">--</option>
+                                                    <option  *ngFor="let user of users" [value]="user._id">{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="deleteUser()">Delete User</button>
+                                        </form>
                                     </mat-card>
                             </div>
                         </div>
-                    </mat-card>
-
-                    <mat-card class="project-card"> <!-- Team Management -->
+            </mat-card>
+            <mat-card class="big-admin-card"> <!-- Team Management -->
                         <mat-card-title>
                             Team Management:
                         </mat-card-title>
@@ -134,21 +120,21 @@
                                         <mat-card-title>
                                             Create a Team
                                         </mat-card-title>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Team Name">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Assign a Scrum Master:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="luke">Luke</option>
-                                                <option value="douglas">Douglas</option>
-                                                <option value="alec">Alec</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Create Team</button>
+                                        <form [formGroup]="createTeamForm" >
+                                            <mat-form-field>
+                                                <input matInput placeholder="Team Name" formControlName="name">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Assign a Scrum Master:</mat-label>
+                                                <select matNativeControl required formControlName="scrum_master">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let user of scrum_masters" [value]="user._id" >{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="createTeam()">Create Team</button>
+                                        </form>
                                     </mat-card>
                             </div>
                             <div> <!-- Team Modification -->
@@ -156,31 +142,29 @@
                                         <mat-card-title>
                                             Modify a Team
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="team1">Team 1</option>
-                                                <option value="team2">Team 2</option>
-                                                <option value="team3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field>
-                                            <input matInput placeholder="Change team name">
-                                        </mat-form-field>
-                                        <br>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Change Scrum Master:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="luke">Luke</option>
-                                                <option value="douglas">Douglas</option>
-                                                <option value="alec">Alec</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Apply Changes</button>
+                                        <form [formGroup]="modifyTeamForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a Team:</mat-label>
+                                                <select matNativeControl required [(ngModel)]="currentTeamId" [ngModelOptions]="{standalone: true}">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Change team name" formControlName="name">
+                                            </mat-form-field>
+                                            <br>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Change Scrum Master:</mat-label>
+                                                <select matNativeControl required formControlName="scrum_master">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let user of scrum_masters" [value]="user._id" >{{user.username}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="modifyTeam()">Apply Changes</button>
+                                        </form>
                                     </mat-card>
                             </div>
                             <div> <!-- Team Deletion -->
@@ -188,23 +172,22 @@
                                         <mat-card-title>
                                             Delete a Team
                                         </mat-card-title>
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Select a Team:</mat-label>
-                                            <select matNativeControl required>
-                                                <option value="none">--</option>
-                                                <option value="team1">Team 1</option>
-                                                <option value="team2">Team 2</option>
-                                                <option value="team3">Team 3</option>
-                                            </select>
-                                        </mat-form-field>
-                                        <br>
-                                        <button mat-raised-button class="admin-button" type="submit">Delete User</button>
+                                        <form [formGroup]="deleteTeamForm" >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Select a Team:</mat-label>
+                                                <select matNativeControl required formControlName="id">
+                                                    <option value="none">--</option>
+                                                    <option *ngFor="let team of teams" [value]="team._id" >{{team.name}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                            <br>
+                                            <button mat-raised-button class="admin-button" type="submit" (click)="deleteTeam()">Delete User</button>
+                                        </form>
                                     </mat-card>
                             </div>
                         </div>
-                    </mat-card>
-
-                    <mat-card class="project-card">
+            </mat-card>
+            <mat-card class="big-admin-card"> <!-- Log Viewer -->
                         <mat-card-title>
                             Log Viewer:
                         </mat-card-title>
@@ -215,15 +198,37 @@
                                   <input matStartDate placeholder="Start date">
                                   <input matEndDate placeholder="End date">
                                 </mat-date-range-input>
-                                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                                <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
                             </mat-form-field>
-                            <button mat-raised-button class="admin-button" type="submit">View Logs</button>
+                            <button mat-raised-button class="button" type="submit">View Logs</button>
+                            <br>
+                            <br>
+                            <table mat-table [dataSource]="logTable.dataSource" class="mat-elevation-z8 demo-table"> <!-- TABLE -->
+                                <!-- Date Column -->
+                                <ng-container matColumnDef="date">
+                                  <th mat-header-cell *matHeaderCellDef> Date </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                                </ng-container>
+                              
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="type">
+                                  <th mat-header-cell *matHeaderCellDef> Type </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                                </ng-container>
+                              
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="message">
+                                  <th mat-header-cell *matHeaderCellDef> Message </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+                                </ng-container>
+                              
+                                <tr mat-header-row *matHeaderRowDef="logTable.displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: logTable.displayedColumns;"></tr>
+                              </table>
                         </div>
-                    </mat-card>
-                </div>
-            </mat-drawer-content>
-        </mat-drawer-container>
+            </mat-card>
+        </div>
     </div>
 </body>
