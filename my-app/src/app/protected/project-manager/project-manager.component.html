@@ -7,6 +7,9 @@
         <mat-drawer-container class="sidenav">
             <mat-drawer mode="side" class="project-list" opened>
                 <h2>Projects:</h2>
+                <mat-card-actions class="proj-addBtn" align="end">
+                    <button mat-raised-button (click)="openDialog()">Add</button>
+                </mat-card-actions>
                 <div *ngFor="let project of projects">
                     <button mat-icon-button (click)="changeSelectedProject(project)">{{project.title}}</button>
                     <br>
@@ -17,9 +20,9 @@
             <mat-drawer-content *ngIf="this.isEng==true">
                 <div> <!--description card -->
                     <mat-card class="description-card">
-                        <h3>
+                        <mat-card-title>
                             {{selectedProj.title}}
-                        </h3>
+                        </mat-card-title>
                         <mat-card-content>
                             {{selectedProj.description}}
                         </mat-card-content>
@@ -150,10 +153,10 @@
                 <div> <!--description card -->
                     <mat-card class="description-card">
                         <h3>
-                            Description:
+                            Project:
                         </h3>
                         <mat-card-content>
-                            Here is a description of the current project.
+                            Description: Here is a description of the current project.
                         </mat-card-content>
                     </mat-card>
                 </div>

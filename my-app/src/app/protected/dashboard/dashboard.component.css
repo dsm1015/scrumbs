@@ -6,6 +6,13 @@ body {
     padding: 30px;
 }
 
+.welcome-card {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color:#0A7029;
+}
+
 .grid-margin {
     margin-top: 10px;
     margin-bottom: 10px;
