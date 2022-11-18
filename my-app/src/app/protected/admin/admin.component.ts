@@ -5,7 +5,7 @@ import { OrchestrationService } from 'src/app/orchestration/orchestration.servic
 import { Team } from 'src/app/models/team';
 import { User, Users } from '../../models/user'
 import { MessageDialogComponent } from './dialog/message.component';
-import { Log, LogAttributes } from 'src/app/_models/log';
+import { Log, LogAttributes } from '../../models/log';
 
 @Component({
     selector: 'app-admin',
