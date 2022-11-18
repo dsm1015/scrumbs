@@ -27,8 +27,10 @@ import { MatSelectModule } from '@angular/material/select'; //select
 import { MatDatepickerModule } from '@angular/material/datepicker'; //datepicker
 import { MatNativeDateModule } from '@angular/material/core'; //date
 import { MatDialogModule } from '@angular/material/dialog'; //dialog
-import { MatMenuModule } from '@angular/material/menu';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu'; // menu
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'; //form field
+import { MatTableModule } from '@angular/material/table'; //table
+
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -68,6 +70,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     MatNativeDateModule,
     MatDialogModule,
     MatMenuModule,
+    MatTableModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

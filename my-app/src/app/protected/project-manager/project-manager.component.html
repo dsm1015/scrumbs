@@ -6,7 +6,12 @@
     <div>
         <mat-drawer-container class="sidenav">
             <mat-drawer mode="side" class="project-list" opened>
-                <h2>Projects:</h2>
+                <div>
+                    <h2>Projects:</h2>
+                    <mat-card-actions class="proj-addBtn" align="end">
+                        <button mat-raised-button (click)="openDialog()">Add</button>
+                    </mat-card-actions>
+                </div>
                 <button mat-icon-button (click)="getProjInfo('Rework Website')">Rework Website</button>
                 <br>
                 <button mat-icon-button (click)="getProjInfo('Build Database')">Build Database</button>
@@ -18,11 +23,11 @@
             <mat-drawer-content *ngIf="this.isEng==true">
                 <div> <!--description card -->
                     <mat-card class="description-card">
-                        <h3>
-                            Description:
-                        </h3>
+                        <mat-card-title>
+                            Project:
+                        </mat-card-title>
                         <mat-card-content>
-                            Here is a description of the current project.
+                            Description: Here is a description of the current project.
                         </mat-card-content>
                     </mat-card>
                 </div>
@@ -92,10 +97,10 @@
                 <div> <!--description card -->
                     <mat-card class="description-card">
                         <h3>
-                            Description:
+                            Project:
                         </h3>
                         <mat-card-content>
-                            Here is a description of the current project.
+                            Description: Here is a description of the current project.
                         </mat-card-content>
                     </mat-card>
                 </div>

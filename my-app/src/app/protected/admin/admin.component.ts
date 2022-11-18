@@ -5,6 +5,7 @@ import { OrchestrationService } from 'src/app/orchestration/orchestration.servic
 import { Team } from 'src/app/_models/team';
 import { User, Users } from '../../_models/user'
 import { MessageDialogComponent } from './dialog/message.component';
+import { Log, LogAttributes } from 'src/app/_models/log';
 
 @Component({
     selector: 'app-admin',
@@ -25,6 +26,8 @@ export class AdminComponent implements OnInit {
     // ATTRIBUTES //
     users: User[] = [];
     teams: Team[] = [];
+    ELEMENT_DATA: LogAttributes[] = [];
+    logTable: Log;
     scrum_masters: User[] = [];
     currentUserId?: string = '';
     currentTeamId?: string = '';
@@ -58,6 +61,13 @@ export class AdminComponent implements OnInit {
         this.deleteTeamForm = this.fb.group({
             id: ['',Validators.required]
         });
+
+        // Log
+        this.ELEMENT_DATA = [
+           {date: 12, type: "warning", message: "test"}
+        ]
+
+        this.logTable = {dataSource: this.ELEMENT_DATA, displayedColumns: ['date', 'type', 'message']};
 
     }
 
