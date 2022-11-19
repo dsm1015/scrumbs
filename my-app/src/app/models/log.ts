@@ -1,12 +1,16 @@
 import {Component} from '@angular/core';
 
 export interface LogAttributes {
-  date: number;
-  type: string;
+  timestamp: Date | null;
+  level: string;
   message: string;
+}
+
+export interface Logs {
+  logs: LogAttributes [];
 }
   
 export class Log {
-    displayedColumns: string[] = ['date', 'type', 'message'];
+    displayedColumns: string[] = ['timestamp', 'level', 'message'];
     dataSource: LogAttributes[] = [];
   }

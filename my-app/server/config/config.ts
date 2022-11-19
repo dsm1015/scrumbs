@@ -10,8 +10,6 @@ const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 
 
 const SALT_FACTOR: number = 10;
 
-const SECRET_KEY = process.env.SECRET_KEY || '';
-
 export const config = {
     mongo : {
         url: MONGO_URL
@@ -21,8 +19,5 @@ export const config = {
     },
     salt: {
         factor: SALT_FACTOR
-    },
-    secret: {
-        key: SECRET_KEY
     }
 }

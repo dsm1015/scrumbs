@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Project, Projects, Task } from '../../models/project';
 import { MatDialog } from '@angular/material/dialog'; //new
 
-import { ProjectDialogComponent } from './project-dialog.component'; //new
+import { AddTaskDialogComponent } from './dialogs/add-task-dialog.component'; //new
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
+import { AddProjectDialogComponent } from './dialogs/add-project-dialog.component';
+import { Teams } from 'src/app/models/team';
 //import { FilterCompletedPipe, FilterInProgPipe, FilterNeedsApprovedPipe, FilterToDoPipe} from '../../pipes/filter-status.pipe'
 
 
@@ -78,8 +80,22 @@ export class ProjectManagerComponent implements OnInit {
       });
     }
 
-    openDialog(): void { //dialog for adding tasks
-      let dialogRef = this.dialog.open(ProjectDialogComponent, {
+    openAddTaskDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(AddTaskDialogComponent, {
+        width: '250px',
+        data: { projTitle: this.selectedProj.title }
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+        if(result.title && result.description){
+          this.addProjectTask(result.title, result.description);
+        }
+      });
+    }
+
+    openAddProjectDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(AddProjectDialogComponent, {
         width: '250px',
         data: { projTitle: this.selectedProj.title }
       });
@@ -104,5 +120,21 @@ export class ProjectManagerComponent implements OnInit {
         this.selectedProj.taskList = data.project_tasks;
         console.log(this.selectedProj.taskList);
       });
+    }
+
+    createProject(title: string, description: string, teams: Teams[]){
+      const project: Project = {
+        _id: '',
+        title: title,
+        description: description,
+        teams: teams
+      }
+
+      return this.orchestration.createProject(project).subscribe(data => {
+        console.log('message', data);
+        //refresh projects
+        this.getProjects();
+      });
+
     }
 }

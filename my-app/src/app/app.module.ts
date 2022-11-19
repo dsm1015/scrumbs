@@ -11,7 +11,8 @@ import { AdminComponent } from './protected/admin/admin.component';
 import { NavComponent } from './protected/nav/nav.component';
 import { ReportViewerComponent } from './protected/report-viewer/report-viewer.component';
 import { AuthInterceptor } from './security/authconfig.interceptor'
-import { ProjectDialogComponent } from './protected/project-manager/project-dialog.component';
+import { AddTaskDialogComponent } from './protected/project-manager/dialogs/add-task-dialog.component';
+import { AddProjectDialogComponent } from './protected/project-manager/dialogs/add-project-dialog.component';
 import { FilterStatusPipe } from './pipes/filter-status.pipe';
 
 //Angular Material Imports
@@ -51,7 +52,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     AdminComponent,
     NavComponent,
     ReportViewerComponent,
-    ProjectDialogComponent,
+    AddTaskDialogComponent,
+    AddProjectDialogComponent,
     FilterStatusPipe
   ],
   imports: [
