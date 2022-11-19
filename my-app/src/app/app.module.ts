@@ -11,6 +11,7 @@ import { AdminComponent } from './protected/admin/admin.component';
 import { NavComponent } from './protected/nav/nav.component';
 import { ReportViewerComponent } from './protected/report-viewer/report-viewer.component';
 import { AuthInterceptor } from './security/authconfig.interceptor'
+import { TaskDialogComponent } from './protected/project-manager/task-dialog.component';
 import { ProjectDialogComponent } from './protected/project-manager/project-dialog.component';
 import { FilterStatusPipe } from './pipes/filter-status.pipe';
 
@@ -51,6 +52,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     AdminComponent,
     NavComponent,
     ReportViewerComponent,
+    TaskDialogComponent,
     ProjectDialogComponent,
     FilterStatusPipe
   ],

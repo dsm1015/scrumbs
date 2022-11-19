@@ -6,10 +6,11 @@
     <div>
         <mat-drawer-container class="sidenav">
             <mat-drawer mode="side" class="project-list" opened>
-                <h2>Projects:</h2>
-                <mat-card-actions class="proj-addBtn" align="end">
-                    <button mat-raised-button (click)="openDialog()">Add</button>
-                </mat-card-actions>
+                <h2 class="proj-header">Projects:
+                    <mat-card-actions class="proj-addBtn" align="end">
+                        <button mat-raised-button (click)="openProjectDialog()">Add</button>
+                    </mat-card-actions>
+                </h2>
                 <div *ngFor="let project of projects">
                     <button mat-icon-button (click)="changeSelectedProject(project)">{{project.title}}</button>
                     <br>
@@ -31,12 +32,12 @@
                 <p>
                 <!-- Cards for varying project tasks -->
                 <mat-card class="project-card" fxFlex="25"> <!-- To Do -->
-                    <mat-card-title> 
-                        To Do:
+                    <mat-card-title class="proj-card-title"> 
+                        To Do:                    
+                        <mat-card-actions class="addBtn" align="end">
+                            <button mat-raised-button (click)="openTaskDialog()">Add</button>
+                        </mat-card-actions>
                     </mat-card-title>
-                    <mat-card-actions class="addBtn" align="start">
-                        <button mat-raised-button (click)="openDialog()">Add</button>
-                    </mat-card-actions>
                     <div>
                         <mat-grid-list cols="2" rowHeight="150px" gutterSize="5px">
                             <mat-grid-tile *ngFor="let task of selectedProj.taskList | filterStatusPipe:'to-do'">
@@ -62,7 +63,7 @@
                 </mat-card>
 
                 <mat-card class="project-card" fxFlex="25"> <!-- In Progress -->
-                    <mat-card-title>
+                    <mat-card-title class="proj-card-title">
                         In Progress:
                     </mat-card-title>
                     <!-- <mat-card-actions class="addBtn" align="end">
@@ -93,7 +94,7 @@
                 </mat-card>
 
                 <mat-card class="project-card" fxFlex="25"> <!-- Needs Approved -->
-                    <mat-card-title>
+                    <mat-card-title class="proj-card-title">
                         Needs Approved:
                     </mat-card-title>
                     <!-- <mat-card-actions class="addBtn" align="end">
@@ -125,7 +126,7 @@
                 </mat-card>
 
                 <mat-card class="project-card" fxFlex="25"> <!-- Completed -->
-                    <mat-card-title>
+                    <mat-card-title class="proj-card-title">
                         Completed:
                     </mat-card-title>
                    <!--  <mat-card-actions class="addBtn" align="end">

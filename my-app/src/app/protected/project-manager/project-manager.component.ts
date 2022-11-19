@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Project, Projects, Task } from '../../models/project';
-import { MatDialog } from '@angular/material/dialog'; //new
+import { MatDialog } from '@angular/material/dialog';
 
-import { ProjectDialogComponent } from './project-dialog.component'; //new
+import { TaskDialogComponent } from './task-dialog.component'; //task dialog box
+import { ProjectDialogComponent } from './project-dialog.component'; //project dialog box
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
 //import { FilterCompletedPipe, FilterInProgPipe, FilterNeedsApprovedPipe, FilterToDoPipe} from '../../pipes/filter-status.pipe'
 
@@ -78,7 +79,21 @@ export class ProjectManagerComponent implements OnInit {
       });
     }
 
-    openDialog(): void { //dialog for adding tasks
+    openTaskDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(TaskDialogComponent, {
+        width: '250px',
+        data: { projTitle: this.selectedProj.title }
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+        if(result.title && result.description){
+          this.addProjectTask(result.title, result.description);
+        }
+      });
+    }
+
+    openProjectDialog(): void { //dialog for adding tasks
       let dialogRef = this.dialog.open(ProjectDialogComponent, {
         width: '250px',
         data: { projTitle: this.selectedProj.title }
