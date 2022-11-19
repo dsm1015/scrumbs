@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Project, Projects, Task } from '../../models/project';
-import { MatDialog } from '@angular/material/dialog'; //new
+import { MatDialog } from '@angular/material/dialog';
 
-import { AddTaskDialogComponent } from './dialogs/add-task-dialog.component'; //new
+import { TaskDialogComponent } from './task-dialog.component'; //task dialog box
+import { ProjectDialogComponent } from './project-dialog.component'; //project dialog box
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
 import { AddProjectDialogComponent } from './dialogs/add-project-dialog.component';
 import { Teams } from 'src/app/models/team';
@@ -80,8 +81,8 @@ export class ProjectManagerComponent implements OnInit {
       });
     }
 
-    openAddTaskDialog(): void { //dialog for adding tasks
-      let dialogRef = this.dialog.open(AddTaskDialogComponent, {
+    openTaskDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(TaskDialogComponent, {
         width: '250px',
         data: { projTitle: this.selectedProj.title }
       });
@@ -94,8 +95,8 @@ export class ProjectManagerComponent implements OnInit {
       });
     }
 
-    openAddProjectDialog(): void { //dialog for adding tasks
-      let dialogRef = this.dialog.open(AddProjectDialogComponent, {
+    openProjectDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(ProjectDialogComponent, {
         width: '250px',
         data: { projTitle: this.selectedProj.title }
       });

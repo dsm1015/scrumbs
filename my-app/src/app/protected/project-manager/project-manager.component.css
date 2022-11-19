@@ -48,7 +48,8 @@ mat-drawer {
 }
 
 .task-menu {
-  margin-top: 30px;
+  margin-top: 10px;
+  /*margin-bottom: 5px;*/
 }
 
 .description-card {
@@ -59,6 +60,21 @@ mat-drawer {
   width: 1650px;
 }
 
-.proj-add-btn {
+.proj-addBtn {
   float: right;
+  margin-top: -8px;
+  margin-right: 8px;
+}
+
+.proj-header {
+  margin-top: 15px;
+}
+
+.proj-card-title {
+  margin-bottom: 20px;
+}
+
+.addBtn {
+  float: right;
+  margin-top: -15px;
 }
