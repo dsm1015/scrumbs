@@ -8,7 +8,7 @@ import DevLog from './security/dev.logger';
 import ProdLog from './security/dev.logger';
 import {verifyAdminToken, verifyToken} from './security/token';
 
-//Log
+// Log --Devlog only prints to console
 const Log = DevLog;
 
 //Route imports

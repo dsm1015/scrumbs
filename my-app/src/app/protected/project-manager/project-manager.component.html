@@ -8,7 +8,7 @@
             <mat-drawer mode="side" class="project-list" opened>
                 <h2 class="proj-header">Projects:
                     <mat-card-actions class="proj-addBtn" align="end">
-                        <button mat-raised-button (click)="openProjectDialog()">Add</button>
+                        <button mat-raised-button (click)="openAddProjectDialog()">Add</button>
                     </mat-card-actions>
                 </h2>
                 <div *ngFor="let project of projects">
@@ -35,7 +35,7 @@
                     <mat-card-title class="proj-card-title"> 
                         To Do:                    
                         <mat-card-actions class="addBtn" align="end">
-                            <button mat-raised-button (click)="openTaskDialog()">Add</button>
+                            <button mat-raised-button (click)="openAddTaskDialog()">Add</button>
                         </mat-card-actions>
                     </mat-card-title>
                     <mat-card-actions class="addBtn" align="start" *ngIf="selectedProj._id.length > 0">

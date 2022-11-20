@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Project, Projects, Task } from '../../models/project';
 import { MatDialog } from '@angular/material/dialog';
 
-import { TaskDialogComponent } from './task-dialog.component'; //task dialog box
-import { ProjectDialogComponent } from './project-dialog.component'; //project dialog box
+import { AddTaskDialogComponent } from './dialogs/add-task-dialog.component'; //task dialog box
+import { AddProjectDialogComponent } from './dialogs/add-project-dialog.component'; //project dialog box
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
-import { AddProjectDialogComponent } from './dialogs/add-project-dialog.component';
 import { Teams } from 'src/app/models/team';
+import { User } from 'src/app/models/user';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 //import { FilterCompletedPipe, FilterInProgPipe, FilterNeedsApprovedPipe, FilterToDoPipe} from '../../pipes/filter-status.pipe'
 
 
@@ -21,6 +22,8 @@ export class ProjectManagerComponent implements OnInit {
     public isEng: boolean;
     public isStake: boolean;
     public selectedProj: Project;
+
+    //currentUser: User;
 
     //projects
     projects: Project [] = [];
@@ -81,22 +84,22 @@ export class ProjectManagerComponent implements OnInit {
       });
     }
 
-    openTaskDialog(): void { //dialog for adding tasks
-      let dialogRef = this.dialog.open(TaskDialogComponent, {
+    openAddTaskDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(AddTaskDialogComponent, {
         width: '250px',
         data: { projTitle: this.selectedProj.title }
       });
     
       dialogRef.afterClosed().subscribe(result => {
         console.log(result);
-        if(result.title && result.description){
-          this.addProjectTask(result.title, result.description);
+        if(result.title && result.description && result.team){
+          this.createProject(result.title, result.description, result.team);
         }
       });
     }
 
-    openProjectDialog(): void { //dialog for adding tasks
-      let dialogRef = this.dialog.open(ProjectDialogComponent, {
+    openAddProjectDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(AddProjectDialogComponent, {
         width: '250px',
         data: { projTitle: this.selectedProj.title }
       });

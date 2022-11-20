@@ -7,7 +7,9 @@
       <mat-form-field>
         <input matInput placeholder="Description" [(ngModel)]="data.description">
       </mat-form-field>
-      <!-- add team dropdown -->
+      <!-- <select matNativeControl required>
+        <option *ngFor="let team of teams" [(ngModel)]="data.team" >{{team.name}}</option>
+      </select> -->
     </div>
     <div mat-dialog-actions>
       <button mat-button (click)="onCancel()">Cancel</button>

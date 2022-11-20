@@ -50,6 +50,10 @@ export class AuthenticationService {
         return localStorage.getItem('id_token');
     }
 
+    getUserId(){
+        return localStorage.getItem('id_user')
+    }
+
     // get user profile, pass in token and verify
     getUserProfile(): Observable<any> {
         const api = `${environment.API_URL}/login/role`;
@@ -64,6 +68,7 @@ export class AuthenticationService {
 
     private setSession(authResult: any ) {
         localStorage.setItem('id_token', authResult.userToken);
+        localStorage.setItem('id_user', authResult.userId);
     }
 
     logout() {

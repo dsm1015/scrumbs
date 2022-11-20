@@ -10,7 +10,8 @@ export function generateToken(user: any){
     try{
         if(user){
             const jwtBearerToken = jwt.sign(
-                { 
+                {
+                    userId: user._id,
                     username: user.username,
                     role:  user.role,
                 }, 
@@ -96,6 +97,7 @@ export function getTokenRole(token: any): string{
         if (err) {
             return role;
         } else {
+            console.log(decoded);
             role = decoded.role;
             if(role){
                 return role;
