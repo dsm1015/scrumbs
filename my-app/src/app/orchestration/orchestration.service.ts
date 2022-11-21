@@ -45,8 +45,8 @@ export class OrchestrationService{
         return this.http.post(`${environment.API_URL}/users/create`, { user });
     }
 
-    readUser(){
-
+    readUser(id: string){
+        return this.http.get<any>(`${environment.API_URL}/users/get/${id}`);
     }
 
     readAllUsers(){

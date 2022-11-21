@@ -6,7 +6,9 @@ import * as moment from 'moment';
 
 import { CurrentUser } from '../models/current-user'
 import { environment } from "src/environments/environment";
+import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
 import { Router } from "@angular/router";
+import { User } from "../models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -15,14 +17,17 @@ import { Router } from "@angular/router";
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<CurrentUser> | undefined;
     public currentUser: Observable<CurrentUser> | undefined;
+    public currentUserAttr: User;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    constructor(private http: HttpClient, private router: Router){
+    constructor(private http: HttpClient, private router: Router, private orchestration: OrchestrationService){
         const userJson = localStorage.getItem('currentUser');
         if(userJson){
             this.currentUserSubject = new BehaviorSubject<CurrentUser>(JSON.parse(userJson))
             this.currentUser = this.currentUserSubject.asObservable();
         }
+        this.currentUserAttr={_id: "", username: "", role: ""};
+        this.getCurrentUser();
     }
 
     public get currentUserValue(): CurrentUser | undefined {
@@ -66,6 +71,16 @@ export class AuthenticationService {
         );
       }
 
+    getCurrentUser() {
+        const id = this.getUserId();
+        if(id){
+          this.orchestration.readUser(id).subscribe (data => {
+            this.currentUserAttr = data.user;
+            return data.user;
+          });
+        }
+    }
+
     private setSession(authResult: any ) {
         localStorage.setItem('id_token', authResult.userToken);
         localStorage.setItem('id_user', authResult.userId);
@@ -108,4 +123,5 @@ export class AuthenticationService {
         }
         return throwError(msg);
     }
+
 }
