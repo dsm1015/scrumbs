@@ -4,12 +4,12 @@
 
     <mat-card class="welcome-card">
         <h1>
-            Welcome, {{currentUser.username}}
+            Welcome, {{currentUser.userName}}
         </h1>
     </mat-card>
 
     <!-- Admin Dashboard Cards-->
-    <div *ngIf="currentUser.role=='admin'">
+    <div *ngIf="currentUser.userRole=='admin'">
         <mat-grid-list cols="2" rowHeight="320px" gutterSize="10px" class="grid-margin">
             <mat-grid-tile> <!-- Projects Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
@@ -55,7 +55,7 @@
     </div>
 
     <!-- Engineer Dashboard Cards-->
-    <div *ngIf="currentUser.role=='engineer'">
+    <div *ngIf="currentUser.userRole=='engineer'">
         <mat-grid-list cols="1" rowHeight="320px" gutterSize="20px" class="grid-margin">
             <mat-grid-tile> <!-- Projects Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
@@ -71,7 +71,7 @@
     </div>
 
     <!-- Master Dashboard Cards-->
-    <div *ngIf="currentUser.role=='scrum_master'">
+    <div *ngIf="currentUser.userRole=='scrum_master'">
         <mat-grid-list cols="2" rowHeight="320px" gutterSize="10px" class="grid-margin">
             <mat-grid-tile> <!-- Projects Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
@@ -117,7 +117,7 @@
     </div>
 
     <!-- Stakeholder Dashboard Cards-->
-    <div *ngIf="currentUser.role=='stakeholder'">
+    <div *ngIf="currentUser.userRole=='stakeholder'">
         <mat-grid-list cols="2" rowHeight="320px" gutterSize="10px" class="grid-margin">
             <mat-grid-tile> <!-- Domain Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">

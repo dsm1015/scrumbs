@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentUser } from 'src/app/models/current-user';
 import { User } from 'src/app/models/user';
+
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 
@@ -12,7 +14,7 @@ import { AuthenticationService } from 'src/app/security/authentication.service';
 // Dashboard component
 export class DashboardComponent implements OnInit {
     //user var
-    public currentUser: User;
+    public currentUser: CurrentUser;
     public isEng: boolean;
     public isStake: boolean;
     public isAdmin: boolean;
@@ -23,10 +25,10 @@ export class DashboardComponent implements OnInit {
       this.isStake=false;
       this.isAdmin=false;
       this.isMaster=true;
-      this.currentUser=this.authService.currentUserAttr;
-      console.log(this.authService.currentUserAttr);
-      console.log(authService.getCurrentUser());
-  }
+      const userJSON = localStorage.getItem('currentUser');
+      this.currentUser= authService.currentUserValue;
+      console.log(this.currentUser);
+    }
 
 
     ngOnInit(): void {

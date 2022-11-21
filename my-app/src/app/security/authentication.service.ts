@@ -27,11 +27,15 @@ export class AuthenticationService {
             this.currentUser = this.currentUserSubject.asObservable();
         }
         this.currentUserAttr={_id: "", username: "", role: ""};
-        this.getCurrentUser();
+        //this.getCurrentUser();
     }
 
-    public get currentUserValue(): CurrentUser | undefined {
-        return this.currentUserSubject?.value;
+    public get currentUserValue(): CurrentUser {
+        if(this.currentUserSubject?.value){
+            return this.currentUserSubject?.value;
+        }
+        const retVal: CurrentUser = {userId:'',userName: '',userRole:'',userToken:''};
+        return retVal;
     }
 
     login(username: string, password: string) {
@@ -40,11 +44,13 @@ export class AuthenticationService {
         const observer = {
             next: (res: any) => {
                 this.setSession(res);
-                this.getUserProfile().subscribe((res) => {
+                this.router.navigate(['/dashboard']);
+               /*  this.getUserProfile().subscribe((res) => {
                     this.currentUser = res;
                     this.router.navigate(['/dashboard']);
                     });
-                },
+                */
+            },
             error: (err: Error) => console.log(err)
         };
         return response.subscribe(observer);
@@ -71,23 +77,24 @@ export class AuthenticationService {
         );
       }
 
-    getCurrentUser() {
+    /* getCurrentUser() {
         const id = this.getUserId();
         if(id){
-          this.orchestration.readUser(id).subscribe (data => {
+          this.orchestration.readUser(id).subscribe(data => {
             this.currentUserAttr = data.user;
             return data.user;
           });
         }
-    }
+    } */
 
     private setSession(authResult: any ) {
+        const userJSON = {'id_user':  authResult.userId, 'userName': authResult.userName, 'userRole': authResult.userRole, 'userTeam': authResult.userTeam};
+        localStorage.setItem('currentUser', JSON.stringify(userJSON));
         localStorage.setItem('id_token', authResult.userToken);
-        localStorage.setItem('id_user', authResult.userId);
     }
 
     logout() {
-        localStorage.removeItem("id_token");
+        localStorage.clear();
         this.router.navigate(['/login'])
     }
 
