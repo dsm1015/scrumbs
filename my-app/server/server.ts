@@ -5,7 +5,7 @@ import http from 'http';
 
 import { config } from './config/config';
 import DevLog from './security/dev.logger';
-import ProdLog from './security/dev.logger';
+import ProdLog from './security/prod.logger';
 import {verifyAdminToken, verifyToken} from './security/token';
 
 // Log --Devlog only prints to console

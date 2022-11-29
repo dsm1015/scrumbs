@@ -25,8 +25,9 @@ export class DashboardComponent implements OnInit {
       this.isStake=false;
       this.isAdmin=false;
       this.isMaster=true;
-      const userJSON = localStorage.getItem('currentUser');
-      this.currentUser= authService.currentUserValue;
+
+      //var userJSON = localStorage.getItem('currentUser');
+      this.currentUser = {userId:'',userName:'',userRole:'',userToken:'',userTeam:''}
       console.log(this.currentUser);
     }
 
