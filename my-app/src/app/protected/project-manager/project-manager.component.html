@@ -34,13 +34,10 @@
                 <mat-card class="project-card" fxFlex="25"> <!-- To Do -->
                     <mat-card-title class="proj-card-title"> 
                         To Do:                    
-                        <mat-card-actions class="addBtn" align="end">
+                        <mat-card-actions class="addBtn" align="end" *ngIf="selectedProj._id.length > 0">
                             <button mat-raised-button (click)="openAddTaskDialog()">Add</button>
                         </mat-card-actions>
                     </mat-card-title>
-                    <mat-card-actions class="addBtn" align="start" *ngIf="selectedProj._id.length > 0">
-                        <button mat-raised-button (click)="openAddTaskDialog()">Add</button>
-                    </mat-card-actions>
                     <div>
                         <mat-grid-list cols="2" rowHeight="150px" gutterSize="5px">
                             <mat-grid-tile *ngFor="let task of selectedProj.taskList | filterStatusPipe:'to-do'">

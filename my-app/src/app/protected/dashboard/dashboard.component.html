@@ -12,33 +12,42 @@
     <div *ngIf="currentUser.userRole=='admin'">
         <mat-grid-list cols="2" rowHeight="320px" gutterSize="10px" class="grid-margin">
             <mat-grid-tile> <!-- Projects Card -->
-                <mat-card fxFlex="100" fxFlexAlign="stretch">
+                <mat-card fxFlex="100" fxFlexAlign="stretch" >
                     <mat-card-title>
-                        Projects:
+                        Projects: {{projects.length}}
                     </mat-card-title>
                     <mat-card-subtitle>
                         Live Projects
                     </mat-card-subtitle>
+                    <mat-card-content *ngFor="let project of projects">
+                        {{project.title}}
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile> <!-- User Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
                     <mat-card-title>
-                        Users:
+                        Users: {{users.length}}
                     </mat-card-title>
                     <mat-card-subtitle>
                         Active Users
                     </mat-card-subtitle>
+                    <mat-card-content  *ngFor="let user of users">
+                        {{user.username}}
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile> <!-- Domain Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
                     <mat-card-title>
-                        Team:
+                        Teams: {{teams.length}}
                     </mat-card-title>
                     <mat-card-subtitle>
                         Team Information
                     </mat-card-subtitle>
+                    <mat-card-content  *ngFor="let team of teams">
+                        {{team.name}}
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile> <!-- Requests Card -->
@@ -76,31 +85,40 @@
             <mat-grid-tile> <!-- Projects Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
                     <mat-card-title>
-                        Projects:
+                        Projects: {{projects.length}}
                     </mat-card-title>
                     <mat-card-subtitle>
                         Live Projects
                     </mat-card-subtitle>
+                    <mat-card-content *ngFor="let project of projects">
+                        {{project.title}}
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile> <!-- User Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
                     <mat-card-title>
-                        Users:
+                        Users: {{users.length}}
                     </mat-card-title>
                     <mat-card-subtitle>
                         Active Users
                     </mat-card-subtitle>
+                    <mat-card-content  *ngFor="let user of users">
+                        {{user.username}}
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile> <!-- Domain Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
                     <mat-card-title>
-                        Team:
+                        Team: {{teams.length}}
                     </mat-card-title>
                     <mat-card-subtitle>
                         Team Information
                     </mat-card-subtitle>
+                    <mat-card-content  *ngFor="let team of teams">
+                        {{team.name}}
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile> <!-- Requests Card -->

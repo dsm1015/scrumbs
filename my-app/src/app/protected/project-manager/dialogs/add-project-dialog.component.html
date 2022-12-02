@@ -12,7 +12,7 @@
       </select> -->
     </div>
     <div mat-dialog-actions>
-      <button mat-button (click)="onCancel()">Cancel</button>
-      <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Add</button>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Add</button>
     </div>
   </div>

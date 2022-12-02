@@ -92,8 +92,8 @@ export class ProjectManagerComponent implements OnInit {
     
       dialogRef.afterClosed().subscribe(result => {
         console.log(result);
-        if(result.title && result.description && result.team){
-          this.createProject(result.title, result.description, result.team);
+        if(result.title && result.description){
+          this.addProjectTask(result.title, result.description);
         }
       });
     }
@@ -105,9 +105,8 @@ export class ProjectManagerComponent implements OnInit {
       });
     
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
         if(result.title && result.description){
-          this.addProjectTask(result.title, result.description);
+          this.createProject(result.title, result.description);
         }
       });
     }
@@ -126,13 +125,12 @@ export class ProjectManagerComponent implements OnInit {
       });
     }
 
-    createProject(title: string, description: string, teams: Teams[]){
-      const project: Project = {
-        _id: '',
+    createProject(title: string, description: string){
+      const project = {
         title: title,
         description: description,
-        teams: teams
       }
+      console.log(project);
 
       return this.orchestration.createProject(project).subscribe(data => {
         console.log('message', data);
