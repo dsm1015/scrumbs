@@ -31,8 +31,9 @@
         
                 <div class="container vertical sample" *ngIf="taskReport">
                     <h2>{{selectedProject.title}}</h2>
+                    <h4>{{selectedProject.description}}</h4>
                     <div class="legend-title">
-                        Tasks: 
+                        Tasks: {{selectedProject.taskList.length}}
                     </div>
                     <br>
                     <div class="legend">
@@ -61,7 +62,12 @@
 
                 <div class="container vertical sample" *ngIf="taskReport">
                     <div class="legend-title">
-                        Tasks Progress Last 2 weeks: 
+                        Task Progress:
+                        <select matNativeControl required [(ngModel)]="noOfDays" (ngModelChange)="changeRange($event)">
+                            <option [ngValue]="8">last week</option>
+                            <option [ngValue]="15">last 2 weeks</option>
+                            <option [ngValue]="31">last month</option>
+                        </select>
                     </div>
                     <div class="legend">
                         <igx-legend

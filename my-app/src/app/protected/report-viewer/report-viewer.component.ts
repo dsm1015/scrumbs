@@ -25,6 +25,7 @@ export class ReportViewerComponent implements OnInit {
 
   public taskReport!: TaskReport;
   public lineChartData: LineChartItem [] = [];
+  public noOfDays: string = '15';
 
   title!: string;
   date!: number;
@@ -99,6 +100,7 @@ export class ReportViewerComponent implements OnInit {
   }
   fillLineData(){
     if(this.selectedProject.taskList){
+      const noOfDays = Number(this.noOfDays);
       const data: LineChartItem [] = [];
       const temp: any[] = [];
       const inprog = this.selectedProject.taskList.filter((task) => task.status === "in-prog");
@@ -113,7 +115,7 @@ export class ReportViewerComponent implements OnInit {
       const currTime = new Date(Date.now());
 
       var tempTime: Date = currTime;
-      for(var i = 0; i<15; i++){
+      for(var i = 0; i<noOfDays; i++){
         var counts: number[] = [0,0,0,0];
         for(var item of temp){
           for(var task of item){
@@ -122,6 +124,7 @@ export class ReportViewerComponent implements OnInit {
             const end = new Date(tempTime.getTime());
             end.setDate(tempTime.getDate()-1);
             if((dateConvert <= tempTime && dateConvert >= end)){
+              console.log(task.title, end, " <= ", dateConvert, " <= ", tempTime  );
               if(task.status === "to-do"){
                 counts[0]++;
               } else if(task.status === "in-prog"){
@@ -147,6 +150,11 @@ export class ReportViewerComponent implements OnInit {
       console.log(data);
       this.lineChartData = data.reverse();
     }
+  }
+
+  changeRange(num: string){
+    this.noOfDays = num; 
+    this.fillLineData();
   }
 
 }
