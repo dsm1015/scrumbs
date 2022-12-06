@@ -5,7 +5,7 @@ export class Project {
     _id!: string;
     title!: string;
     description!: string;
-    taskList?: Task[];
+    taskList: Task[] = [];
     teams?: Teams[];
     
     constructor(n: string, d: string){

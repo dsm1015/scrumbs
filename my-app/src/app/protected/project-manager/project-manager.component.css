@@ -45,6 +45,7 @@ mat-drawer {
 .task-card {
   background-color: #DBE8D8;
   height: 150px;
+  display: flex;
 }
 
 .task-menu {

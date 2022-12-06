@@ -7,16 +7,15 @@
         <mat-drawer-container class="sidenav">
             <mat-drawer mode="side" class="project-list" opened>
                 <h2>Reports:</h2>
-                <button mat-icon-button (click)="getReportInfo('09.01.22')">09.01.22</button>
-                <br>
-                <button mat-icon-button (click)="getReportInfo('10.01.22')">10.01.22</button>
-                <br>
-                <button mat-icon-button (click)="getReportInfo('11.01.22')">11.01.22</button>
+                <div *ngFor="let project of projects">
+                    <button mat-icon-button (click)="selectReport(project)">{{project.title}} Report</button>
+                    <br>
+                </div>
             </mat-drawer>
             <mat-drawer-content>
                 <!-- Cards for varying project tasks -->
                 <mat-card fxFlex="stretch" class="report-card">
-                    <mat-card-title>
+                    <!-- <mat-card-title>
                         Report:
                     </mat-card-title>
                     <h2>
@@ -27,8 +26,69 @@
                     </h2>
                     <h2>
                         Report Information:
-                    </h2>
-                </mat-card>
+                    </h2> -->
+                
+        
+                <div class="container vertical sample" *ngIf="taskReport">
+                    <h2>{{selectedProject.title}}</h2>
+                    <div class="legend-title">
+                        Tasks: 
+                    </div>
+                    <br>
+                    <div class="legend">
+                        <igx-item-legend
+                        orientation="Horizontal"
+                        name="Legend"
+                        #legend>
+                        </igx-item-legend>
+                    </div>
+                    <div class="container fill">
+                        <igx-pie-chart
+                        [dataSource]="taskReport"
+                        valueMemberPath="value"
+                        labelMemberPath="summary"
+                        legendLabelMemberPath="summary"
+                        labelsPosition="OutsideEnd"
+                        radiusFactor="0.8"
+                        [legend]="legend"
+                        labelExtent="30"
+                        outlines="black"
+                        name="chart"
+                        #chart>
+                </igx-pie-chart>
+                    </div>
+                </div>
+
+                <div class="container vertical sample" *ngIf="taskReport">
+                    <div class="legend-title">
+                        Tasks Progress Last 2 weeks: 
+                    </div>
+                    <div class="legend">
+                        <igx-legend
+                        orientation="Horizontal"
+                        name="Legend"
+                        #legend>
+                        </igx-legend>
+                    </div>
+                    <div class="container fill">
+                        <igx-category-chart
+                        chartType="Line"
+                        yAxisLabelLeftMargin="0"
+                        yAxisTitleLeftMargin="10"
+                        yAxisTitleRightMargin="5"
+                        yAxisTitle=""
+                        [dataSource]="lineChartData"
+                        includedProperties="day, todo, inprog, needsappr, completed"
+                        [legend]="legend"
+                        isHorizontalZoomEnabled="false"
+                        isVerticalZoomEnabled="false"
+                        computedPlotAreaMarginMode="Series"
+                        name="chart"
+                        #chart>
+                        </igx-category-chart>
+                    </div>
+                  </div>
+            </mat-card>
             </mat-drawer-content>
         </mat-drawer-container>
     </div>

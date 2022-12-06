@@ -37,6 +37,7 @@ export class ProjectManagerComponent implements OnInit {
           _id: '',
           title: '',
           description: '',
+          taskList: []
         };
         this.getProjects();
     }

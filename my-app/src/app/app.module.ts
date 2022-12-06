@@ -37,6 +37,7 @@ import { MatTableModule } from '@angular/material/table'; //table
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { IgxItemLegendModule, IgxPieChartModule, IgxCategoryChartModule , IgxLegendModule} from 'igniteui-angular-charts';
 
 
 //Font Awesome
@@ -78,6 +79,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    IgxItemLegendModule,
+    IgxPieChartModule,
+    IgxCategoryChartModule,
+    IgxLegendModule
     //FontAwesomeModule
   ],
   providers: [
