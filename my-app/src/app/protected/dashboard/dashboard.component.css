@@ -2,6 +2,10 @@ body {
     background-color: lightgray;
 }
 
+mat-card {
+    overflow-y: scroll;
+}
+
 .main-card {
     padding: 30px;
 }

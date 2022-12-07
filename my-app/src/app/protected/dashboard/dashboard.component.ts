@@ -56,6 +56,7 @@ export class DashboardComponent implements OnInit {
       switch (role) {
         case 'engineer':
           this.isEng = true;
+          this.getProjectsAndTasks();
           break;
         case 'admin':
           this.isAdmin =true;
@@ -71,6 +72,7 @@ export class DashboardComponent implements OnInit {
           break;
         case 'stakeholder':
           this.isStake = true;
+          this.getProjects();
           break;
       }
     }
@@ -79,6 +81,18 @@ export class DashboardComponent implements OnInit {
       this.orchestration.readAllProjects().subscribe(data => {
         this.projects = data.projects;
         console.log(this.projects);
+      });
+    }
+    getProjectsAndTasks(){
+      this.orchestration.readAllProjects().subscribe(data => {
+        this.projects = data.projects;
+        this.getProjectTasks(this.projects[0]._id)
+        console.log(this.projects);
+      });
+    }
+    getProjectTasks(id: string){
+      this.orchestration.readAllProjectTasks(id).subscribe(data => {
+        this.projects[0].taskList = data.project_tasks;
       });
     }
     getUsers(){

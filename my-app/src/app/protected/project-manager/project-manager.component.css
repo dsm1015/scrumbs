@@ -45,7 +45,7 @@ mat-drawer {
 .task-card {
   background-color: #DBE8D8;
   height: 150px;
-  display: flex;
+  overflow-y: scroll;
 }
 
 .task-menu {
@@ -54,11 +54,12 @@ mat-drawer {
 }
 
 .description-card {
+  background-color: #DBE8D8;
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 5px;
   height: 80px;
-  width: 1650px;
+  width: 1200px;
 }
 
 .proj-addBtn {

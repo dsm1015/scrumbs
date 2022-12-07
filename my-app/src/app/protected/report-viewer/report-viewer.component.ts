@@ -3,8 +3,6 @@ import { TaskReport } from '../../models/report'
 import { IgxItemLegendComponent, IgxPieChartComponent, ItemHighlightFrameRect } from 'igniteui-angular-charts';
 import { Project } from 'src/app/models/project';
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
-import { takeLast } from 'rxjs-compat/operator/takeLast';
-import { NoDataRowOutlet } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-report-viewer',
@@ -26,6 +24,7 @@ export class ReportViewerComponent implements OnInit {
   public taskReport!: TaskReport;
   public lineChartData: LineChartItem [] = [];
   public noOfDays: string = '15';
+  public today = new Date(Date.now()).toJSON().slice(0, 10);
 
   title!: string;
   date!: number;
@@ -49,13 +48,13 @@ export class ReportViewerComponent implements OnInit {
     this.selectedProject = project;
     this.getProjectTasks(this.selectedProject._id);
     console.log("Current Proj", this.selectedProject);
-    this.fillPieData();
-    this.fillLineData();
   }
 
   getProjectTasks(id: string){
     this.orchestration.readAllProjectTasks(id).subscribe(data => {
       this.selectedProject.taskList = data.project_tasks;
+      this.fillPieData();
+      this.fillLineData();
     });
   }
 
@@ -69,6 +68,12 @@ export class ReportViewerComponent implements OnInit {
       console.log(inprog.length, todo.length, needsappr.length, completed.length);
       const total = inprog.length+ todo.length+ needsappr.length+ completed.length
     
+      const todoItem: ChartItem = {
+        value: todo.length,
+        status: "To Do",
+        summary: "To Do " + ((todo.length/total*100).toFixed(2)) + "%"
+      }
+      data.push(todoItem);
       const inprogItem: ChartItem = {
         value: inprog.length,
         status: "In Progress",
@@ -87,12 +92,7 @@ export class ReportViewerComponent implements OnInit {
         summary: "Completed " + ((completed.length/total*100).toFixed(2)) + "%"
       }
       data.push(completedItem);
-      const todoItem: ChartItem = {
-        value: todo.length,
-        status: "To Do",
-        summary: "To Do " + ((todo.length/total*100).toFixed(2)) + "%"
-      }
-      data.push(todoItem);
+      
       this.data = data;
       this.taskReport = new TaskReport(data);
       console.log(this.taskReport);
@@ -119,7 +119,7 @@ export class ReportViewerComponent implements OnInit {
         var counts: number[] = [0,0,0,0];
         for(var item of temp){
           for(var task of item){
-            const date: string = task.updatedAt;
+            const date: string = task.createdAt;
             const dateConvert = new Date(date);
             const end = new Date(tempTime.getTime());
             end.setDate(tempTime.getDate()-1);

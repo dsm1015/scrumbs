@@ -69,11 +69,26 @@
             <mat-grid-tile> <!-- Projects Card -->
                 <mat-card fxFlex="100" fxFlexAlign="stretch">
                     <mat-card-title>
-                        Projects:
+                        Projects: {{projects.length}}
                     </mat-card-title>
                     <mat-card-subtitle>
                         Live Projects
                     </mat-card-subtitle>
+                    <mat-card-content *ngFor="let project of projects">
+                        {{project.title}}
+                    </mat-card-content>
+                </mat-card>
+                <mat-card fxFlex="100" fxFlexAlign="stretch">
+                    <mat-card-title>
+                        To Do Board Outlook:
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        To Do:
+                    </mat-card-subtitle>
+                    <mat-card-content *ngFor="let task of projects[0].taskList | filterStatusPipe:'to-do'">
+                        <h3><strong>{{task.title}}</strong></h3>
+                        <p>&nbsp;- {{task.description}}</p>
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
@@ -129,6 +144,9 @@
                     <mat-card-subtitle>
                         Available Reports
                     </mat-card-subtitle>
+                    <mat-card-content *ngFor="let project of projects">
+                        {{project.title}} Report
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
@@ -155,6 +173,9 @@
                     <mat-card-subtitle>
                         Available Reports
                     </mat-card-subtitle>
+                    <mat-card-content *ngFor="let project of projects">
+                        {{project.title}} Report
+                    </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>

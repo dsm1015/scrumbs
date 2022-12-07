@@ -4,27 +4,36 @@
     color: white;
   }
   
-  .sidenav {
-      width: 100vw;
-      height: 95vh;
-      background-color: #0A7029;
-      
-    }
-  
-  mat-drawer {
-      width: 200px;
-    }
-  
-  .project-list {
-      padding-left: 10px;
-    }
-  
-  .report-card {
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: flex;
-  }
+.sidenav {
+    width: 100vw;
+    height: 95vh;
+    background-color: #0A7029;
+    
+}
+
+mat-drawer {
+    width: 200px;
+}
+
+.project-list {
+    padding-left: 10px;
+}
+
+.report-card {
+margin-left: 10px;
+margin-top: 10px;
+margin-bottom: 10px;
+display: flex;
+}
+
+.proj-desc-card {
+    text-align: center;
+    background-color: #DBE8D8;
+}
+
+.no-conent{
+    text-align: center;
+}
   
 
 
