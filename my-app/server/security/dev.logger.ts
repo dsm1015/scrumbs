@@ -1,4 +1,3 @@
-import * as logger from 'winston';
 import { format, createLogger, transports} from 'winston';
 
 export default class DevLogger {

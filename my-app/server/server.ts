@@ -69,10 +69,10 @@ const StartServer = () => {
         app.use('/login/', loginRoutes);
 
         // PROTECTED //
-        app.use('/users/', userRoutes);
-        app.use('/teams/', teamRoutes);
-        app.use('/projects/', projectRoutes);
-        app.use('/logs/', logRoutes);
+        app.use('/users/', verifyToken, userRoutes);
+        app.use('/teams/', verifyToken, teamRoutes);
+        app.use('/projects/', verifyToken, projectRoutes);
+        app.use('/logs/', verifyToken, logRoutes);
     
         // PING CHECK //
         app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));

@@ -77,16 +77,6 @@ export class AuthenticationService {
         );
       }
 
-    /* getCurrentUser() {
-        const id = this.getUserId();
-        if(id){
-          this.orchestration.readUser(id).subscribe(data => {
-            this.currentUserAttr = data.user;
-            return data.user;
-          });
-        }
-    } */
-
     private setSession(authResult: any ) {
         const userJSON = {'id_user':  authResult.userId, 'userName': authResult.userName, 'userRole': authResult.userRole, 'userTeam': authResult.userTeam};
         localStorage.setItem('currentUser', JSON.stringify(userJSON));

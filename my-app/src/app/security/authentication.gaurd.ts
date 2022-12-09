@@ -17,10 +17,6 @@ export class AuthenticationGaurd implements CanActivate{
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
 
-        //TEST TEST TEST
-        console.log("Auth Gaurd check: ", state)
-        return true;
-
         if (this.authenticationService.isLoggedIn()) {
             return true;
         }

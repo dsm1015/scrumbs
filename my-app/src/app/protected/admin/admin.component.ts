@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
 import { Team } from 'src/app/models/team';
-import { User, Users } from '../../models/user'
+import { User} from '../../models/user'
 import { MessageDialogComponent } from './dialog/message.component';
-import { Log, LogAttributes } from '../../models/log';
+import { Log} from '../../models/log';
 
 @Component({
     selector: 'app-admin',
