@@ -22,16 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
             .pipe(dematerialize());
 
         function handleRoute() {
-            return authenticate();
-            /* switch (true) {
-                case url.endsWith('/session') && method === 'POST':
-                    return authenticate();
-                case url.endsWith('/get') && method === 'POST':
-                        return authenticate();
-                default:
-                    // pass through any requests not handled above
-                    return authenticate();
-            }   */  
+           return authenticate();
         }
 
         // add tokens to APIs for authentication on server side

@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
 import { Team } from 'src/app/models/team';
-import { User, Users } from '../../models/user'
+import { User} from '../../models/user'
 import { MessageDialogComponent } from './dialog/message.component';
-import { Log, LogAttributes } from '../../models/log';
+import { Log} from '../../models/log';
 
 @Component({
     selector: 'app-admin',
@@ -22,12 +22,13 @@ export class AdminComponent implements OnInit {
     createTeamForm: FormGroup;
     modifyTeamForm: FormGroup;
     deleteTeamForm: FormGroup;
+    logDateRangeForm: FormGroup;
 
     // ATTRIBUTES //
     users: User[] = [];
     teams: Team[] = [];
-    ELEMENT_DATA: LogAttributes[] = [];
-    logTable: Log;
+    //ELEMENT_DATA: LogAttributes[] = [];
+    logTable!: Log;
     scrum_masters: User[] = [];
     currentUserId?: string = '';
     currentTeamId?: string = '';
@@ -61,13 +62,16 @@ export class AdminComponent implements OnInit {
         this.deleteTeamForm = this.fb.group({
             id: ['',Validators.required]
         });
+        this.logDateRangeForm = this.fb.group({
+            start: ['', Validators.required],
+            end: ['',Validators.required]
+        })
 
-        // Log
-        this.ELEMENT_DATA = [
-           {date: 12, type: "warning", message: "test"}
-        ]
-
-        this.logTable = {dataSource: this.ELEMENT_DATA, displayedColumns: ['date', 'type', 'message']};
+        // LOG TABLE
+        this.logTable = {
+            dataSource: [{timestamp: null, level: '', message: ''}],
+            displayedColumns: ['timestamp', 'level', 'message']
+        };
 
     }
 
@@ -105,7 +109,6 @@ export class AdminComponent implements OnInit {
             this.generateMessage("User Created");
             //reset form
             this.createUserForm.reset();
-            this.generateMessage(data);
         });
     }
 
@@ -194,5 +197,20 @@ export class AdminComponent implements OnInit {
             //reset form
             this.deleteTeamForm.reset();
         });
+    }
+
+    getLogs(){
+        const start = new Date(this.logDateRangeForm.value.start).toISOString()
+        const end = new Date(this.logDateRangeForm.value.end).toISOString()
+        console.log(start, end);
+        
+        this.orchestration.readLogs(start, end).subscribe(data => {
+            //change table data
+            console.log(data)
+            const LOG_DATA = data.logs;
+            console.log(LOG_DATA[0].timestamp, LOG_DATA);
+            this.logTable.dataSource = LOG_DATA;
+        })
+
     }
 }

@@ -6,7 +6,9 @@ import * as moment from 'moment';
 
 import { CurrentUser } from '../models/current-user'
 import { environment } from "src/environments/environment";
+import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
 import { Router } from "@angular/router";
+import { User } from "../models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -15,18 +17,25 @@ import { Router } from "@angular/router";
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<CurrentUser> | undefined;
     public currentUser: Observable<CurrentUser> | undefined;
+    public currentUserAttr: User;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    constructor(private http: HttpClient, private router: Router){
+    constructor(private http: HttpClient, private router: Router, private orchestration: OrchestrationService){
         const userJson = localStorage.getItem('currentUser');
         if(userJson){
             this.currentUserSubject = new BehaviorSubject<CurrentUser>(JSON.parse(userJson))
             this.currentUser = this.currentUserSubject.asObservable();
         }
+        this.currentUserAttr={_id: "", username: "", role: ""};
+        //this.getCurrentUser();
     }
 
-    public get currentUserValue(): CurrentUser | undefined {
-        return this.currentUserSubject?.value;
+    public get currentUserValue(): CurrentUser {
+        if(this.currentUserSubject?.value){
+            return this.currentUserSubject?.value;
+        }
+        const retVal: CurrentUser = {userId:'',userName: '',userRole:'',userToken:''};
+        return retVal;
     }
 
     login(username: string, password: string) {
@@ -35,11 +44,13 @@ export class AuthenticationService {
         const observer = {
             next: (res: any) => {
                 this.setSession(res);
-                this.getUserProfile().subscribe((res) => {
+                this.router.navigate(['/dashboard']);
+               /*  this.getUserProfile().subscribe((res) => {
                     this.currentUser = res;
                     this.router.navigate(['/dashboard']);
                     });
-                },
+                */
+            },
             error: (err: Error) => console.log(err)
         };
         return response.subscribe(observer);
@@ -48,6 +59,10 @@ export class AuthenticationService {
     // get token from local storage
     getToken() {
         return localStorage.getItem('id_token');
+    }
+
+    getUserId(){
+        return localStorage.getItem('id_user')
     }
 
     // get user profile, pass in token and verify
@@ -63,11 +78,13 @@ export class AuthenticationService {
       }
 
     private setSession(authResult: any ) {
+        const userJSON = {'id_user':  authResult.userId, 'userName': authResult.userName, 'userRole': authResult.userRole, 'userTeam': authResult.userTeam};
+        localStorage.setItem('currentUser', JSON.stringify(userJSON));
         localStorage.setItem('id_token', authResult.userToken);
     }
 
     logout() {
-        localStorage.removeItem("id_token");
+        localStorage.clear();
         this.router.navigate(['/login'])
     }
 
@@ -103,4 +120,5 @@ export class AuthenticationService {
         }
         return throwError(msg);
     }
+
 }

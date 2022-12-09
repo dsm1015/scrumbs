@@ -1,0 +1,18 @@
+<div> <!-- for adding a project -->
+    <h1 mat-dialog-title>Add a Project</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input matInput placeholder="Title" [(ngModel)]="data.title">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Description" [(ngModel)]="data.description">
+      </mat-form-field>
+      <!-- <select matNativeControl required>
+        <option *ngFor="let team of teams" [(ngModel)]="data.team" >{{team.name}}</option>
+      </select> -->
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+    </div>
+  </div>

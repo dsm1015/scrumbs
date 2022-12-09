@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { Logs } from "../models/log";
 import { Projects, Tasks } from "../models/project";
 import { Team, Teams } from "../models/team";
 import { User, Users } from "../models/user";
@@ -44,8 +45,8 @@ export class OrchestrationService{
         return this.http.post(`${environment.API_URL}/users/create`, { user });
     }
 
-    readUser(){
-
+    readUser(id: string){
+        return this.http.get<any>(`${environment.API_URL}/users/get/${id}`);
     }
 
     readAllUsers(){
@@ -94,6 +95,12 @@ export class OrchestrationService{
 
     createProjectTask(project_task: any){
         return this.http.post(`${environment.API_URL}/projects/tasks/create`, { project_task });
+    }
+
+    // LOGS //
+
+    readLogs(start: string, end: string){
+        return this.http.get<Logs>(`${environment.API_URL}/logs/get/${start}/${end}`);
     }
 
 

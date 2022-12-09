@@ -27,7 +27,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
             const token = generateToken(user);
             if(token){
                 // return token
-                return res.status(200).json({ userToken: token, userId: user._id });
+                return res.status(200).json({ userToken: token, userId: user._id, userName: user.username, userRole: user.role, userTeam: user.team });
             }
             else{
                 return res.status(500).json({message: "Token Generation error"})

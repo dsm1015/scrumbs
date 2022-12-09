@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Project, Projects, Task } from '../../models/project';
-import { MatDialog } from '@angular/material/dialog'; //new
+import { MatDialog } from '@angular/material/dialog';
 
-import { ProjectDialogComponent } from './project-dialog.component'; //new
+import { AddTaskDialogComponent } from './dialogs/add-task-dialog.component'; //task dialog box
+import { AddProjectDialogComponent } from './dialogs/add-project-dialog.component'; //project dialog box
 import { OrchestrationService } from 'src/app/orchestration/orchestration.service';
+import { Teams } from 'src/app/models/team';
+import { User } from 'src/app/models/user';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 //import { FilterCompletedPipe, FilterInProgPipe, FilterNeedsApprovedPipe, FilterToDoPipe} from '../../pipes/filter-status.pipe'
 
 
@@ -19,6 +23,8 @@ export class ProjectManagerComponent implements OnInit {
     public isStake: boolean;
     public selectedProj: Project;
 
+    //currentUser: User;
+
     //projects
     projects: Project [] = [];
 
@@ -31,6 +37,7 @@ export class ProjectManagerComponent implements OnInit {
           _id: '',
           title: '',
           description: '',
+          taskList: []
         };
         this.getProjects();
     }
@@ -78,8 +85,8 @@ export class ProjectManagerComponent implements OnInit {
       });
     }
 
-    openDialog(): void { //dialog for adding tasks
-      let dialogRef = this.dialog.open(ProjectDialogComponent, {
+    openAddTaskDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(AddTaskDialogComponent, {
         width: '250px',
         data: { projTitle: this.selectedProj.title }
       });
@@ -88,6 +95,19 @@ export class ProjectManagerComponent implements OnInit {
         console.log(result);
         if(result.title && result.description){
           this.addProjectTask(result.title, result.description);
+        }
+      });
+    }
+
+    openAddProjectDialog(): void { //dialog for adding tasks
+      let dialogRef = this.dialog.open(AddProjectDialogComponent, {
+        width: '250px',
+        data: { projTitle: this.selectedProj.title }
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        if(result.title && result.description){
+          this.createProject(result.title, result.description);
         }
       });
     }
@@ -104,5 +124,20 @@ export class ProjectManagerComponent implements OnInit {
         this.selectedProj.taskList = data.project_tasks;
         console.log(this.selectedProj.taskList);
       });
+    }
+
+    createProject(title: string, description: string){
+      const project = {
+        title: title,
+        description: description,
+      }
+      console.log(project);
+
+      return this.orchestration.createProject(project).subscribe(data => {
+        console.log('message', data);
+        //refresh projects
+        this.getProjects();
+      });
+
     }
 }

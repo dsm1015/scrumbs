@@ -28,7 +28,8 @@ body{
   width: 420px;
 }
 
-.button {
+
+.mat-button{
   background-color: #DBE8D8;
   margin-left: 15px;
 }

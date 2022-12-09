@@ -42,7 +42,7 @@
                                                 </select>
                                             </mat-form-field>
                                             <br>
-                                            <button mat-raised-button class="admin-button" type="submit" (click)="createUser()" >Create User</button>
+                                            <button mat-raised-button class="button" type="submit" (click)="createUser()" >Create User</button>
                                         </form>
                                     </mat-card>
                             </div>
@@ -87,7 +87,7 @@
                                             </mat-form-field>
                                         </form>
                                         <br>
-                                        <button mat-raised-button class="admin-button" type="submit" (click)="modifyUser()">Apply Changes</button>
+                                        <button mat-raised-button class="button" type="submit" (click)="modifyUser()">Apply Changes</button>
                                     </mat-card>
                             </div>
                             <div> <!-- User Deletion -->
@@ -104,7 +104,7 @@
                                                 </select>
                                             </mat-form-field>
                                             <br>
-                                            <button mat-raised-button class="admin-button" type="submit" (click)="deleteUser()">Delete User</button>
+                                            <button mat-raised-button class="button" type="submit" (click)="deleteUser()">Delete User</button>
                                         </form>
                                     </mat-card>
                             </div>
@@ -133,7 +133,7 @@
                                                 </select>
                                             </mat-form-field>
                                             <br>
-                                            <button mat-raised-button class="admin-button" type="submit" (click)="createTeam()">Create Team</button>
+                                            <button mat-raised-button class="button" type="submit" (click)="createTeam()">Create Team</button>
                                         </form>
                                     </mat-card>
                             </div>
@@ -163,7 +163,7 @@
                                                 </select>
                                             </mat-form-field>
                                             <br>
-                                            <button mat-raised-button class="admin-button" type="submit" (click)="modifyTeam()">Apply Changes</button>
+                                            <button mat-raised-button class="button" type="submit" (click)="modifyTeam()">Apply Changes</button>
                                         </form>
                                     </mat-card>
                             </div>
@@ -181,7 +181,7 @@
                                                 </select>
                                             </mat-form-field>
                                             <br>
-                                            <button mat-raised-button class="admin-button" type="submit" (click)="deleteTeam()">Delete User</button>
+                                            <button mat-raised-button class="button" type="submit" (click)="deleteTeam()">Delete User</button>
                                         </form>
                                     </mat-card>
                             </div>
@@ -192,30 +192,32 @@
                             Log Viewer:
                         </mat-card-title>
                         <div>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter a date range</mat-label>
-                                <mat-date-range-input [rangePicker]="picker">
-                                  <input matStartDate placeholder="Start date">
-                                  <input matEndDate placeholder="End date">
-                                </mat-date-range-input>
-                                <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-date-range-picker #picker></mat-date-range-picker>
-                            </mat-form-field>
-                            <button mat-raised-button class="button" type="submit">View Logs</button>
+                            <form [formGroup]="logDateRangeForm">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Enter a date range</mat-label>
+                                    <mat-date-range-input [rangePicker]="picker">
+                                        <input matStartDate placeholder="Start date" formControlName="start">
+                                        <input matEndDate placeholder="End date" formControlName="end">
+                                    </mat-date-range-input>
+                                    <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                </mat-form-field>
+                            </form>
+                            <button mat-raised-button class="button" type="submit" (click)="getLogs()">View Logs</button>
                             <br>
                             <br>
                             <table mat-table [dataSource]="logTable.dataSource" class="mat-elevation-z8 demo-table"> <!-- TABLE -->
                                 <!-- Date Column -->
-                                <ng-container matColumnDef="date">
-                                  <th mat-header-cell *matHeaderCellDef> Date </th>
-                                  <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                                <ng-container matColumnDef="timestamp">
+                                  <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
                                 </ng-container>
                               
                                 <!-- Name Column -->
-                                <ng-container matColumnDef="type">
+                                <ng-container matColumnDef="level">
                                   <th mat-header-cell *matHeaderCellDef> Type </th>
-                                  <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                                  <td mat-cell *matCellDef="let element"> {{element.level}} </td>
                                 </ng-container>
                               
                                 <!-- Weight Column -->

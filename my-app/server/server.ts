@@ -1,17 +1,22 @@
 // equivalent of older: const express = require('express')
 import express from 'express';
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 import http from 'http';
 
-import { config } from './config/config'
-import Log from './server-log';
+import { config } from './config/config';
+import DevLog from './security/dev.logger';
+import ProdLog from './security/prod.logger';
 import {verifyAdminToken, verifyToken} from './security/token';
 
+// Log --Devlog only prints to console
+const Log = DevLog;
+
 //Route imports
-import userRoutes from './routes/user.routes'
-import loginRoutes from './routes/login.routes'
+import userRoutes from './routes/user.routes';
+import loginRoutes from './routes/login.routes';
 import teamRoutes from './routes/team.routes';
 import projectRoutes from './routes/project.routes';
+import logRoutes from './routes/log.routes';
 
 const app = express();
 
@@ -19,11 +24,11 @@ const app = express();
 mongoose
     .connect(config.mongo.url)
     .then(() => {
-        Log.info('Mongo connected successfully.');
+        Log.log.info('Mongo connected successfully.');
         StartServer();
     })
     .catch((error) => {
-        Log.error(error);
+        Log.log.error(error)
     });
 
 
@@ -33,11 +38,11 @@ const StartServer = () => {
     /** Log the request */
     app.use((req, res, next) => {
         /** Log the req */
-        Log.info(`Incomming - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
+        Log.log.info(`Incomming - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
 
         res.on('finish', () => {
             /** Log the res */
-            Log.info(`Result - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - STATUS: [${res.statusCode}]`);
+            Log.log.info(`Result - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - STATUS: [${res.statusCode}]`);
         });
 
         next();
@@ -55,22 +60,6 @@ const StartServer = () => {
             res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, HEAD, POST, PUT, DELETE, PATCH')
             return res.status(200).json({});
         }
-        // if the API Request passes a token, verify and determine if they are admin
-        if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-            const token = req.headers.authorization.split(' ')[1];
-
-            /* const isTokenValid = verifyToken(token);
-            if(isTokenValid){
-                //valid token!
-                console.log("this request is valid");
-            } */
-
-            /* const isUserAdmin = isAdmin(token)
-            if(isUserAdmin){
-                //admin!
-                console.log("this request is from an admin!");
-            } */
-        }
         next();
     });
     
@@ -80,9 +69,10 @@ const StartServer = () => {
         app.use('/login/', loginRoutes);
 
         // PROTECTED //
-        app.use('/users/', userRoutes);
-        app.use('/teams/', teamRoutes);
-        app.use('/projects/', projectRoutes)
+        app.use('/users/', verifyToken, userRoutes);
+        app.use('/teams/', verifyToken, teamRoutes);
+        app.use('/projects/', verifyToken, projectRoutes);
+        app.use('/logs/', verifyToken, logRoutes);
     
         // PING CHECK //
         app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
@@ -90,10 +80,10 @@ const StartServer = () => {
         // ERROR HANDELING //
         app.use((req, res, next) => {
             const error = new Error("not found");
-            Log.error(error);
+            //Log.error(error);
             return res.status(404).json({ message: error.message});
         });
 
     // START SERVER //
-    http.createServer(app).listen(config.server.port, () => console.log(`Server running on port ${config.server.port}`));
+    http.createServer(app).listen(config.server.port, () => Log.log.info(`Server running on port ${config.server.port}`));
 }
